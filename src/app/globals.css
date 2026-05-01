@@ -93,3 +93,17 @@ input[type="range"].accent-green-600::-webkit-slider-thumb {
 input[type="range"].accent-green-600::-moz-range-thumb {
   background-color: #16a34a;
 }
+
+/* Transparent track for layered slider */
+input[type="range"].transparent-track::-webkit-slider-runnable-track {
+  background: transparent;
+}
+.dark input[type="range"].transparent-track::-webkit-slider-runnable-track {
+  background: transparent;
+}
+input[type="range"].transparent-track::-moz-range-track {
+  background: transparent;
+}
+.dark input[type="range"].transparent-track::-moz-range-track {
+  background: transparent;
+}

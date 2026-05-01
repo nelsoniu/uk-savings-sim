@@ -108,20 +108,37 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                 <div className="mt-2">
                   {onOverrideChange ? (
                     <div className="relative pt-1 flex items-center gap-2">
-                      <input
-                        type="range"
-                        min="0"
-                        max={maxCapacityLimit}
-                        step="10"
-                        value={overrideValue}
-                        onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
-                        className={`w-full cursor-pointer flex-1 bg-transparent group/slider ${item.type === 'regular'
-                          ? 'accent-purple-500'
-                          : item.type === 'easyAccess'
-                            ? 'accent-green-500'
-                            : 'accent-blue-500'
-                          }`}
-                      />
+                      <div className="relative w-full h-4 flex items-center">
+                        {/* Background actual fill bar */}
+                        <div className="absolute inset-x-0 h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden pointer-events-none">
+                          <div
+                            className={`h-full rounded-full transition-all ${isAtMax
+                                ? 'bg-green-500'
+                                : item.type === 'regular'
+                                  ? 'bg-purple-500'
+                                  : item.type === 'easyAccess'
+                                    ? 'bg-green-500'
+                                    : 'bg-blue-500'
+                              }`}
+                            style={{ width: `${Math.min(capacityPercent, 100)}%` }}
+                          />
+                        </div>
+                        {/* Interactive slider over top */}
+                        <input
+                          type="range"
+                          min="0"
+                          max={maxCapacityLimit}
+                          step="10"
+                          value={overrideValue}
+                          onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
+                          className={`absolute inset-0 w-full h-full cursor-pointer z-10 m-0 transparent-track bg-transparent ${item.type === 'regular'
+                              ? 'accent-purple-500'
+                              : item.type === 'easyAccess'
+                                ? 'accent-green-500'
+                                : 'accent-blue-500'
+                            }`}
+                        />
+                      </div>
                     </div>
                   ) : (
                     <div className="h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden">
