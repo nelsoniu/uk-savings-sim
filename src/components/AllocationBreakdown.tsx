@@ -113,29 +113,29 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                         <div className="absolute inset-x-0 h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden pointer-events-none">
                           <div
                             className={`h-full rounded-full transition-all ${isAtMax
-                                ? 'bg-green-500'
-                                : item.type === 'regular'
-                                  ? 'bg-purple-500'
-                                  : item.type === 'easyAccess'
-                                    ? 'bg-green-500'
-                                    : 'bg-blue-500'
+                              ? 'bg-green-500'
+                              : item.type === 'regular'
+                                ? 'bg-purple-500'
+                                : item.type === 'easyAccess'
+                                  ? 'bg-green-500'
+                                  : 'bg-blue-500'
                               }`}
                             style={{ width: `${Math.min(capacityPercent, 100)}%` }}
                           />
                         </div>
-                        {/* Interactive slider over top */}
+                        {/* Interactive slider — controls the cap/limit, not the actual allocation */}
                         <input
                           type="range"
                           min="0"
                           max={maxCapacityLimit}
                           step="10"
-                          value={item.monthlyAmount}
+                          value={overrideValue}
                           onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
                           className={`absolute inset-0 w-full h-full cursor-pointer z-10 m-0 transparent-track bg-transparent ${item.type === 'regular'
-                              ? 'accent-purple-500'
-                              : item.type === 'easyAccess'
-                                ? 'accent-green-500'
-                                : 'accent-blue-500'
+                            ? 'accent-purple-500'
+                            : item.type === 'easyAccess'
+                              ? 'accent-green-500'
+                              : 'accent-blue-500'
                             }`}
                         />
                       </div>
@@ -156,9 +156,11 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                     </div>
                   )}
                   <div className="flex justify-between items-center mt-1">
-                    <p className="text-xs text-gray-400 dark:text-gray-500">
-                      {onOverrideChange && overrideValue < maxCapacityLimit ? (
-                        <span className="text-amber-600 dark:text-amber-500 font-medium tracking-tight">Cap reduced</span>
+                    <p className="text-xs">
+                      {item.monthlyAmount === 0 && overrideValue > 0 ? (
+                        <span className="text-blue-500 dark:text-blue-400">Waiting for budget — increase monthly savings or reduce higher-rate account caps</span>
+                      ) : onOverrideChange && overrideValue < maxCapacityLimit ? (
+                        <span className="text-amber-600 dark:text-amber-500 font-medium tracking-tight">Cap reduced to {formatCurrency(overrideValue)}</span>
                       ) : null}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 text-right">
