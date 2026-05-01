@@ -1,0 +1,84 @@
+{
+  "lastUpdated": "2025-05-01",
+  "regularSavers": [
+    {
+      "id": "first-direct-regular",
+      "name": "First Direct Regular Saver",
+      "provider": "First Direct",
+      "rate": 7.0,
+      "monthlyMax": 300,
+      "annualMax": 3600,
+      "term": 12,
+      "requirements": "Requires 1st Account current account",
+      "affiliateUrl": "#first-direct"
+    },
+    {
+      "id": "nationwide-regular",
+      "name": "Nationwide Regular Saver",
+      "provider": "Nationwide",
+      "rate": 6.5,
+      "monthlyMax": 200,
+      "annualMax": 2400,
+      "term": 12,
+      "requirements": "Requires FlexDirect current account",
+      "affiliateUrl": "#nationwide"
+    },
+    {
+      "id": "hsbc-regular",
+      "name": "HSBC Regular Saver",
+      "provider": "HSBC",
+      "rate": 6.0,
+      "monthlyMax": 250,
+      "annualMax": 3000,
+      "term": 12,
+      "requirements": "Requires HSBC current account",
+      "affiliateUrl": "#hsbc"
+    }
+  ],
+  "easyAccess": [
+    {
+      "id": "marcus",
+      "name": "Marcus Online Savings",
+      "provider": "Goldman Sachs",
+      "rate": 4.75,
+      "minDeposit": 1,
+      "maxBalance": null,
+      "requirements": "None",
+      "affiliateUrl": "#marcus"
+    },
+    {
+      "id": "chip",
+      "name": "Chip Easy Access",
+      "provider": "Chip",
+      "rate": 4.84,
+      "minDeposit": 1,
+      "maxBalance": 100000,
+      "requirements": "App only",
+      "affiliateUrl": "#chip"
+    },
+    {
+      "id": "trading212",
+      "name": "Trading 212 Cash ISA",
+      "provider": "Trading 212",
+      "rate": 5.1,
+      "minDeposit": 1,
+      "maxBalance": 20000,
+      "requirements": "ISA allowance",
+      "affiliateUrl": "#trading212"
+    }
+  ],
+  "indexFunds": [
+    {
+      "id": "vwra",
+      "name": "VWRA",
+      "fullName": "Vanguard FTSE All-World UCITS ETF (USD) Accumulating",
+      "provider": "Vanguard",
+      "projectedReturn": 10.0,
+      "expenseRatio": 0.22,
+      "description": "Global index fund tracking FTSE All-World Index",
+      "affiliateUrl": "#vwra"
+    }
+  ],
+  "defaultEasyAccessRate": 4.75,
+  "defaultIndexReturn": 10.0
+}
