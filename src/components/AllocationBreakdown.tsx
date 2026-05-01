@@ -96,7 +96,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600 dark:text-gray-400">
                   {formatCurrency(item.monthlyAmount)}/mo
-                  {item.monthlyMax && (
+                  {item.monthlyMax !== undefined && (
                     <span className="text-gray-400 dark:text-gray-500">
                       {' '}of {formatCurrency(item.monthlyMax)} max
                     </span>
