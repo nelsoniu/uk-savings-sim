@@ -63,9 +63,22 @@ export function StrategyCard({
           </div>
         </div>
         <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-          <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">
-            1yr Projected Pot
-          </p>
+          <div className="flex items-center gap-1 mb-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              1yr Projected Pot
+            </p>
+            <div className="group relative inline-flex cursor-help">
+              <svg className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 opacity-0 transition-opacity group-hover:opacity-100 z-10 bg-gray-800 dark:bg-gray-700 shadow-xl text-white text-xs rounded-md py-2 px-3 text-center font-normal leading-relaxed normal-case tracking-normal">
+                Uses exact month-by-month compounding, which often yields slightly higher exact returns compared to the simple "Est. Annual Interest" average.
+                <svg className="absolute left-1/2 top-full -mt-px -translate-x-1/2 text-gray-800 dark:text-gray-700 h-2 w-full" x="0px" y="0px" viewBox="0 0 255 255">
+                  <polygon className="fill-current" points="0,0 127.5,127.5 255,0" />
+                </svg>
+              </div>
+            </div>
+          </div>
           <p className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
             {formatCurrency(result.oneYearProjectedPot)}
           </p>
