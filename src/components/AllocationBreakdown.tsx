@@ -1,14 +1,16 @@
 'use client';
 
-import { AllocationItem } from '@/types';
+import { AllocationItem, AllocationOverrides } from '@/types';
 import { formatCurrency } from '@/utils/calculations';
 
 interface AllocationBreakdownProps {
   allocation: AllocationItem[];
   monthlyTotal: number;
+  overrides?: AllocationOverrides;
+  onOverrideChange?: (provider: string, val: number) => void;
 }
 
-export function AllocationBreakdown({ allocation, monthlyTotal }: AllocationBreakdownProps) {
+export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOverrideChange }: AllocationBreakdownProps) {
   if (!allocation || allocation.length === 0) return null;
 
   const getTypeColor = (type: AllocationItem['type'], isAtMax: boolean) => {
@@ -62,9 +64,11 @@ export function AllocationBreakdown({ allocation, monthlyTotal }: AllocationBrea
       <div className="space-y-2">
         {allocation.map((item, index) => {
           const isAtMax = item.monthlyMax !== undefined && item.monthlyAmount >= item.monthlyMax;
-          const capacityPercent = item.monthlyMax
-            ? (item.monthlyAmount / item.monthlyMax) * 100
+          const maxCapacityLimit = item.nativeMonthlyMax || item.monthlyMax || 0;
+          const capacityPercent = maxCapacityLimit > 0
+            ? (item.monthlyAmount / maxCapacityLimit) * 100
             : 100;
+          const overrideValue = overrides?.[item.provider] ?? maxCapacityLimit;
 
           return (
             <div
@@ -99,26 +103,51 @@ export function AllocationBreakdown({ allocation, monthlyTotal }: AllocationBrea
                   )}
                 </span>
               </div>
-              {/* Capacity bar - shows how full this account is */}
-              {item.monthlyMax && (
+              {/* Capacity bar - shows how full this account is or custom user slider */}
+              {maxCapacityLimit > 0 && (
                 <div className="mt-2">
-                  <div className="h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all ${
-                        isAtMax
+                  {onOverrideChange ? (
+                    <div className="relative pt-1 flex items-center gap-2">
+                      <input
+                        type="range"
+                        min="0"
+                        max={maxCapacityLimit}
+                        step="10"
+                        value={overrideValue}
+                        onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
+                        className={`w-full cursor-pointer flex-1 bg-transparent group/slider ${item.type === 'regular'
+                          ? 'accent-purple-500'
+                          : item.type === 'easyAccess'
+                            ? 'accent-green-500'
+                            : 'accent-blue-500'
+                          }`}
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${isAtMax
                           ? 'bg-green-500'
                           : item.type === 'regular'
-                          ? 'bg-purple-500'
-                          : item.type === 'easyAccess'
-                          ? 'bg-green-500'
-                          : 'bg-blue-500'
-                      }`}
-                      style={{ width: `${Math.min(capacityPercent, 100)}%` }}
-                    />
+                            ? 'bg-purple-500'
+                            : item.type === 'easyAccess'
+                              ? 'bg-green-500'
+                              : 'bg-blue-500'
+                          }`}
+                        style={{ width: `${Math.min(capacityPercent, 100)}%` }}
+                      />
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center mt-1">
+                    <p className="text-xs text-gray-400 dark:text-gray-500">
+                      {onOverrideChange && overrideValue < maxCapacityLimit ? (
+                        <span className="text-amber-600 dark:text-amber-500 font-medium tracking-tight">Cap reduced</span>
+                      ) : null}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 text-right">
+                      {capacityPercent.toFixed(0)}% of account capacity
+                    </p>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
-                    {capacityPercent.toFixed(0)}% of account capacity
-                  </p>
                 </div>
               )}
               {/* Index funds have no max */}

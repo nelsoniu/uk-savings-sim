@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { StrategyType, AccountsData, CustomMix, StrategyResult } from '@/types';
+import { StrategyType, AccountsData, CustomMix, StrategyResult, AllocationOverrides } from '@/types';
 import { StrategyCard } from './StrategyCard';
 import { CustomMixSliders } from './CustomMixSliders';
 import { AllocationBreakdown } from './AllocationBreakdown';
@@ -23,6 +23,8 @@ interface StrategyTabsProps {
     allIndex: StrategyResult;
     custom: StrategyResult;
   }) => void;
+  overrides: AllocationOverrides;
+  onOverrideChange: (provider: string, val: number) => void;
 }
 
 const tabs: { id: StrategyType; label: string }[] = [
@@ -37,11 +39,13 @@ export function StrategyTabs({
   accounts,
   customMix,
   onCustomMixChange,
+  overrides,
+  onOverrideChange,
 }: StrategyTabsProps) {
   const [activeTab, setActiveTab] = useState<StrategyType>('optimised');
 
   // Calculate all strategy results
-  const optimisedResult = calculateOptimisedSplit(monthlyAmount, accounts);
+  const optimisedResult = calculateOptimisedSplit(monthlyAmount, accounts, overrides);
   const oneSavingsResult = calculateOneSavingsAccount(monthlyAmount, accounts);
   const allIndexResult = calculateAllIndexFund(monthlyAmount, accounts);
   const customResult = calculateCustomMix(monthlyAmount, customMix, accounts);
@@ -93,11 +97,10 @@ export function StrategyTabs({
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
-              activeTab === tab.id
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${activeTab === tab.id
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-            }`}
+              }`}
           >
             {tab.label}
           </button>
@@ -116,6 +119,8 @@ export function StrategyTabs({
           <AllocationBreakdown
             allocation={optimisedResult.allocation}
             monthlyTotal={monthlyAmount}
+            overrides={overrides}
+            onOverrideChange={onOverrideChange}
           />
         )}
         {activeTab === 'custom' && (

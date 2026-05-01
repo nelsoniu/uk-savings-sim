@@ -1,4 +1,4 @@
-import { AccountsData, StrategyResult, CustomMix, AllocationItem } from '@/types';
+import { AccountsData, StrategyResult, CustomMix, AllocationItem, AllocationOverrides } from '@/types';
 
 // Calculate compound interest for savings accounts
 function calculateSavingsGrowth(
@@ -61,11 +61,12 @@ function getYearByYearProjection(
 // Strategy 1: Optimised Split - fills regular savers first, then index fund
 export function calculateOptimisedSplit(
   monthlyAmount: number,
-  accounts: AccountsData
+  accounts: AccountsData,
+  overrides?: AllocationOverrides
 ): StrategyResult {
-  // Calculate total monthly capacity for regular savers
+  // Calculate total monthly capacity for regular savers applying overrides where applicable
   const totalRegularCapacity = accounts.regularSavers.reduce(
-    (sum, acc) => sum + acc.monthlyMax,
+    (sum, acc) => sum + (overrides?.[acc.name] ?? acc.monthlyMax),
     0
   );
 
@@ -82,13 +83,15 @@ export function calculateOptimisedSplit(
   const sortedRegularSavers = [...accounts.regularSavers].sort((a, b) => b.rate - a.rate);
 
   for (const acc of sortedRegularSavers) {
-    const allocated = Math.min(remainingToAllocate, acc.monthlyMax);
+    const customMax = overrides?.[acc.name] ?? acc.monthlyMax;
+    const allocated = Math.min(remainingToAllocate, customMax);
     if (allocated > 0) {
       allocation.push({
         name: acc.name,
         provider: acc.provider,
         monthlyAmount: allocated,
-        monthlyMax: acc.monthlyMax,
+        monthlyMax: customMax,
+        nativeMonthlyMax: acc.monthlyMax,
         rate: acc.rate,
         type: 'regular',
       });

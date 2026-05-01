@@ -41,11 +41,14 @@ export interface AccountsData {
   defaultIndexReturn: number;
 }
 
+export type AllocationOverrides = { [provider: string]: number };
+
 export interface AllocationItem {
   name: string;
   provider: string;
   monthlyAmount: number;
   monthlyMax?: number;
+  nativeMonthlyMax?: number;
   rate: number;
   type: 'regular' | 'easyAccess' | 'index';
 }

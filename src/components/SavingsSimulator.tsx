@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { AccountsData, CustomMix } from '@/types';
+import { AccountsData, CustomMix, AllocationOverrides } from '@/types';
 import { SavingsSlider } from './SavingsSlider';
 import { StrategyTabs } from './StrategyTabs';
 import { ProjectionChart } from './ProjectionChart';
@@ -24,16 +24,17 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
     easyAccessPercent: 30,
     indexPercent: 40,
   });
+  const [overrides, setOverrides] = useState<AllocationOverrides>({});
 
   // Calculate all results for the chart
   const results = useMemo(() => {
     return {
-      optimised: calculateOptimisedSplit(monthlyAmount, accounts),
+      optimised: calculateOptimisedSplit(monthlyAmount, accounts, overrides),
       oneSavings: calculateOneSavingsAccount(monthlyAmount, accounts),
       allIndex: calculateAllIndexFund(monthlyAmount, accounts),
       custom: calculateCustomMix(monthlyAmount, customMix, accounts),
     };
-  }, [monthlyAmount, customMix, accounts]);
+  }, [monthlyAmount, customMix, accounts, overrides]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -65,7 +66,11 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
             accounts={accounts}
             customMix={customMix}
             onCustomMixChange={setCustomMix}
-            onResultsChange={() => {}}
+            overrides={overrides}
+            onOverrideChange={(provider, val) =>
+              setOverrides((prev) => ({ ...prev, [provider]: val }))
+            }
+            onResultsChange={() => { }}
           />
         </section>
 
