@@ -105,12 +105,19 @@ export function calculateOptimisedSplit(
   const avgRegularRate = regularSaverAmount > 0 ? weightedRateSum / regularSaverAmount : 0;
 
   // Add index fund allocation if there's overflow
+  let indexAmountActual = 0;
   if (indexAmount > 0) {
     const indexFund = accounts.indexFunds[0];
+    const indexCap = overrides?.[indexFund.provider];
+    indexAmountActual = indexCap !== undefined ? Math.min(indexAmount, indexCap) : indexAmount;
+
+    // Always render index fund in the allocation list
     allocation.push({
       name: indexFund.name,
       provider: indexFund.provider,
-      monthlyAmount: indexAmount,
+      monthlyAmount: indexAmountActual,
+      monthlyMax: indexCap,
+      nativeMonthlyMax: monthlyAmount, // Allow slider up to the total original input
       rate: indexFund.projectedReturn,
       type: 'index',
     });
@@ -118,30 +125,32 @@ export function calculateOptimisedSplit(
 
   const indexReturn = accounts.defaultIndexReturn;
 
-  // Guaranteed deposits per year
-  const guaranteedDepositsPerYear = monthlyAmount * 12;
+  // Guaranteed deposits per year from actual accepted amounts
+  const actualMonthlySaved = (regularSaverAmount > 0 ? Array.from(allocation).filter(a => a.type === 'regular').reduce((s, a) => s + a.monthlyAmount, 0) : 0) + indexAmountActual;
+  const guaranteedDepositsPerYear = actualMonthlySaved * 12;
 
   // Estimated annual interest (first year)
-  const regularInterest = regularSaverAmount * 12 * (avgRegularRate / 100) * 0.5; // Avg balance method
-  const indexGain = indexAmount * 12 * (indexReturn / 100) * 0.5;
+  const regularInterest = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + (acc.monthlyAmount * 12 * (acc.rate / 100) * 0.5), 0);
+  const indexGain = indexAmountActual * 12 * (indexReturn / 100) * 0.5;
   const estimatedAnnualInterest = Math.round(regularInterest + indexGain);
 
   // 1 year projection
-  const regularTotal1yr = calculateSavingsGrowth(regularSaverAmount, avgRegularRate, 1);
-  const indexTotal1yr = calculateIndexGrowth(indexAmount, indexReturn, 1);
+  const regularTotal1yr = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + calculateSavingsGrowth(acc.monthlyAmount, acc.rate, 1), 0);
+  const indexTotal1yr = calculateIndexGrowth(indexAmountActual, indexReturn, 1);
   const oneYearProjectedPot = Math.round(regularTotal1yr + indexTotal1yr);
 
   // 10 year projection
-  const regularTotal = calculateSavingsGrowth(regularSaverAmount, avgRegularRate, 10);
-  const indexTotal = calculateIndexGrowth(indexAmount, indexReturn, 10);
+  const regularTotal = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + calculateSavingsGrowth(acc.monthlyAmount, acc.rate, 10), 0);
+  const indexTotal = calculateIndexGrowth(indexAmountActual, indexReturn, 10);
   const tenYearProjectedPot = Math.round(regularTotal + indexTotal);
 
   // Year by year
+  const actualRegularTotal = allocation.filter(a => a.type === 'regular').reduce((s, a) => s + a.monthlyAmount, 0);
   const yearByYearProjection = getYearByYearProjection(
-    monthlyAmount,
-    regularSaverAmount,
+    actualMonthlySaved,
+    actualRegularTotal,
     0,
-    indexAmount,
+    indexAmountActual,
     accounts
   );
 
