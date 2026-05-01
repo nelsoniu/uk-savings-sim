@@ -76,7 +76,7 @@ export function calculateOptimisedSplit(
 
   // Build allocation breakdown and calculate weighted rate
   const allocation: AllocationItem[] = [];
-  let weightedRate = 0;
+  let weightedRateSum = 0;
   let remainingToAllocate = regularSaverAmount;
 
   // Sort by rate descending and allocate
@@ -84,22 +84,25 @@ export function calculateOptimisedSplit(
 
   for (const acc of sortedRegularSavers) {
     const customMax = overrides?.[acc.provider] ?? acc.monthlyMax;
-    const allocated = Math.min(remainingToAllocate, customMax);
+    const allocated = Math.max(0, Math.min(remainingToAllocate, customMax));
+
+    allocation.push({
+      name: acc.name,
+      provider: acc.provider,
+      monthlyAmount: allocated,
+      monthlyMax: customMax,
+      nativeMonthlyMax: acc.monthlyMax,
+      rate: acc.rate,
+      type: 'regular',
+    });
+
     if (allocated > 0) {
-      allocation.push({
-        name: acc.name,
-        provider: acc.provider,
-        monthlyAmount: allocated,
-        monthlyMax: customMax,
-        nativeMonthlyMax: acc.monthlyMax,
-        rate: acc.rate,
-        type: 'regular',
-      });
-      weightedRate += (allocated / regularSaverAmount) * acc.rate;
+      weightedRateSum += allocated * acc.rate;
       remainingToAllocate -= allocated;
     }
-    if (remainingToAllocate <= 0) break;
   }
+
+  const avgRegularRate = regularSaverAmount > 0 ? weightedRateSum / regularSaverAmount : 0;
 
   // Add index fund allocation if there's overflow
   if (indexAmount > 0) {
@@ -113,7 +116,6 @@ export function calculateOptimisedSplit(
     });
   }
 
-  const avgRegularRate = regularSaverAmount > 0 ? weightedRate : 0;
   const indexReturn = accounts.defaultIndexReturn;
 
   // Guaranteed deposits per year
