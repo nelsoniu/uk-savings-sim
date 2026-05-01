@@ -172,7 +172,25 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires NatWest current account. +1.75% if you switch to Reward/Select account.",
-      "affiliateUrl": "https://www.natwest.com/savings/digital-regular-saver.html"
+      "affiliateUrl": "https://www.natwest.com/savings/digital-regular-saver.html",
+      "bonusNote": "Switch to NatWest Reward/Select account to get +1.75% boost (up to 7%) + £150 cash"
+    },
+    {
+      "id": "rbs-regular",
+      "name": "Digital Regular Saver",
+      "provider": "RBS",
+      "rate": 5.25,
+      "rateType": "variable",
+      "monthlyMax": 150,
+      "annualMax": 5000,
+      "term": 12,
+      "eligibility": "existing-customer",
+      "linkedProduct": "RBS current account",
+      "allowsWithdrawals": true,
+      "allowsSkippedMonths": true,
+      "requirements": "Requires RBS current account. +1.75% if you switch to Reward/Select account.",
+      "affiliateUrl": "https://www.rbs.co.uk/savings/digital-regular-saver.html",
+      "bonusNote": "Switch to RBS Reward/Select account to get +1.75% boost (up to 7%) + £150 cash"
     },
     {
       "id": "lloyds-regular",

@@ -228,6 +228,18 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       {item.type === 'regular' ? `${Math.round(fillPercent)}% of account capacity` : ''}
                     </p>
                   </div>
+                  {/* Maxed-out interest preview */}
+                  {item.type === 'regular' && nativeMax > 0 && (
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                      Maxed out: ~{formatCurrency(Math.round(nativeMax * 12 * (item.rate / 100) * 0.5))}/yr interest
+                    </p>
+                  )}
+                  {/* Switch bonus / promotional note */}
+                  {item.bonusNote && (
+                    <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-0.5 font-medium">
+                      💰 {item.bonusNote}
+                    </p>
+                  )}
                 </div>
               )}
               {/* Easy access note about other options */}

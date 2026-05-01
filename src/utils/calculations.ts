@@ -105,6 +105,7 @@ export function calculateOptimisedSplit(
       linkedProduct: acc.linkedProduct,
       allowsWithdrawals: acc.allowsWithdrawals,
       allowsSkippedMonths: acc.allowsSkippedMonths,
+      bonusNote: acc.bonusNote,
     });
 
     if (allocated > 0) {

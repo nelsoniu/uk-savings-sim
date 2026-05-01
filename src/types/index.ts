@@ -16,6 +16,7 @@ export interface RegularSaver {
   allowsSkippedMonths: boolean;
   requirements: string;
   affiliateUrl: string;
+  bonusNote?: string;
 }
 
 export interface EasyAccessAccount {
@@ -29,6 +30,7 @@ export interface EasyAccessAccount {
   eligibility: EligibilityType;
   linkedProduct?: string;
   requirements: string;
+  bonusNote?: string;
   affiliateUrl: string;
 }
 
@@ -67,6 +69,7 @@ export interface AllocationItem {
   linkedProduct?: string;
   allowsWithdrawals?: boolean;
   allowsSkippedMonths?: boolean;
+  bonusNote?: string;
 }
 
 export interface StrategyResult {
