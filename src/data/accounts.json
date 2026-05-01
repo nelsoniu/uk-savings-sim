@@ -10,7 +10,7 @@
       "annualMax": 2400,
       "term": 12,
       "requirements": "Requires FlexDirect or FlexPlus current account",
-      "affiliateUrl": "https://www.nationwide.co.uk/savings/regular-savings/flex-regular-saver/"
+      "affiliateUrl": "https://www.nationwide.co.uk/savings/flex-regular-saver"
     },
     {
       "id": "zopa-regular",
@@ -21,7 +21,7 @@
       "annualMax": 3600,
       "term": 6,
       "requirements": "Requires Zopa Biscuit current account",
-      "affiliateUrl": "https://www.zopa.com/savings/regular-saver"
+      "affiliateUrl": "https://www.zopa.com/regular-saver"
     },
     {
       "id": "first-direct-regular",
@@ -32,7 +32,7 @@
       "annualMax": 3600,
       "term": 12,
       "requirements": "Requires 1st Account current account",
-      "affiliateUrl": "https://www.firstdirect.com/savings/regular-saver/"
+      "affiliateUrl": "https://www.firstdirect.com/savings-and-investments/savings/regular-saver-account/"
     },
     {
       "id": "santander-regular",
@@ -66,7 +66,7 @@
       "minDeposit": 1,
       "maxBalance": 100000,
       "requirements": "App only",
-      "affiliateUrl": "https://www.getchip.uk/savings"
+      "affiliateUrl": "https://www.getchip.uk/savings-accounts"
     },
     {
       "id": "atom-bank",
