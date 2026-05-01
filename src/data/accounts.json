@@ -10,7 +10,7 @@
       "annualMax": 2400,
       "term": 12,
       "requirements": "Requires FlexDirect or FlexPlus current account",
-      "affiliateUrl": "#nationwide"
+      "affiliateUrl": "https://www.nationwide.co.uk/savings/regular-savings/flex-regular-saver/"
     },
     {
       "id": "zopa-regular",
@@ -21,7 +21,7 @@
       "annualMax": 3600,
       "term": 6,
       "requirements": "Requires Zopa Biscuit current account",
-      "affiliateUrl": "#zopa"
+      "affiliateUrl": "https://www.zopa.com/savings/regular-saver"
     },
     {
       "id": "first-direct-regular",
@@ -32,7 +32,7 @@
       "annualMax": 3600,
       "term": 12,
       "requirements": "Requires 1st Account current account",
-      "affiliateUrl": "#first-direct"
+      "affiliateUrl": "https://www.firstdirect.com/savings/regular-saver/"
     },
     {
       "id": "santander-regular",
@@ -43,7 +43,7 @@
       "annualMax": 2400,
       "term": 12,
       "requirements": "Requires Santander current account",
-      "affiliateUrl": "#santander"
+      "affiliateUrl": "https://www.santander.co.uk/personal/savings/regular-saver"
     },
     {
       "id": "hsbc-regular",
@@ -54,7 +54,7 @@
       "annualMax": 3000,
       "term": 12,
       "requirements": "Requires HSBC current account",
-      "affiliateUrl": "#hsbc"
+      "affiliateUrl": "https://www.hsbc.co.uk/savings/products/regular-saver/"
     }
   ],
   "easyAccess": [
@@ -66,7 +66,7 @@
       "minDeposit": 1,
       "maxBalance": 100000,
       "requirements": "App only",
-      "affiliateUrl": "#chip"
+      "affiliateUrl": "https://www.getchip.uk/savings"
     },
     {
       "id": "atom-bank",
@@ -76,7 +76,7 @@
       "minDeposit": 1,
       "maxBalance": 100000,
       "requirements": "App only",
-      "affiliateUrl": "#atom"
+      "affiliateUrl": "https://www.atombank.co.uk/savings/instant-saver/"
     },
     {
       "id": "trading212",
@@ -86,7 +86,7 @@
       "minDeposit": 1,
       "maxBalance": 20000,
       "requirements": "ISA allowance",
-      "affiliateUrl": "#trading212"
+      "affiliateUrl": "https://www.trading212.com/cash-isa"
     },
     {
       "id": "plum",
@@ -96,7 +96,7 @@
       "minDeposit": 1,
       "maxBalance": 85000,
       "requirements": "App only",
-      "affiliateUrl": "#plum"
+      "affiliateUrl": "https://withplum.com/savings"
     },
     {
       "id": "marcus",
@@ -106,7 +106,7 @@
       "minDeposit": 1,
       "maxBalance": null,
       "requirements": "None",
-      "affiliateUrl": "#marcus"
+      "affiliateUrl": "https://www.marcus.co.uk/uk/en/savings/online-savings-account"
     }
   ],
   "indexFunds": [
@@ -118,7 +118,7 @@
       "projectedReturn": 10.0,
       "expenseRatio": 0.22,
       "description": "Global index fund tracking FTSE All-World Index",
-      "affiliateUrl": "#vwra"
+      "affiliateUrl": "https://www.vanguardinvestor.co.uk/investments/vanguard-ftse-all-world-ucits-etf-usd-accumulating"
     }
   ],
   "defaultEasyAccessRate": 4.84,
