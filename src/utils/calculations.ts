@@ -140,11 +140,19 @@ export function calculateOptimisedSplit(
     accounts
   );
 
+  // Growth percentages
+  const oneYearDeposits = guaranteedDepositsPerYear;
+  const tenYearDeposits = guaranteedDepositsPerYear * 10;
+  const oneYearGrowthPercent = calculateGrowthPercent(oneYearProjectedPot, oneYearDeposits);
+  const tenYearGrowthPercent = calculateGrowthPercent(tenYearProjectedPot, tenYearDeposits);
+
   return {
     guaranteedDepositsPerYear,
     estimatedAnnualInterest,
     oneYearProjectedPot,
+    oneYearGrowthPercent,
     tenYearProjectedPot,
+    tenYearGrowthPercent,
     yearByYearProjection,
     allocation,
   };
@@ -176,11 +184,19 @@ export function calculateOneSavingsAccount(
     accounts
   );
 
+  // Growth percentages
+  const oneYearDeposits = guaranteedDepositsPerYear;
+  const tenYearDeposits = guaranteedDepositsPerYear * 10;
+  const oneYearGrowthPercent = calculateGrowthPercent(oneYearProjectedPot, oneYearDeposits);
+  const tenYearGrowthPercent = calculateGrowthPercent(tenYearProjectedPot, tenYearDeposits);
+
   return {
     guaranteedDepositsPerYear,
     estimatedAnnualInterest,
     oneYearProjectedPot,
+    oneYearGrowthPercent,
     tenYearProjectedPot,
+    tenYearGrowthPercent,
     yearByYearProjection,
   };
 }
@@ -211,11 +227,19 @@ export function calculateAllIndexFund(
     accounts
   );
 
+  // Growth percentages
+  const oneYearDeposits = guaranteedDepositsPerYear;
+  const tenYearDeposits = guaranteedDepositsPerYear * 10;
+  const oneYearGrowthPercent = calculateGrowthPercent(oneYearProjectedPot, oneYearDeposits);
+  const tenYearGrowthPercent = calculateGrowthPercent(tenYearProjectedPot, tenYearDeposits);
+
   return {
     guaranteedDepositsPerYear,
     estimatedAnnualInterest,
     oneYearProjectedPot,
+    oneYearGrowthPercent,
     tenYearProjectedPot,
+    tenYearGrowthPercent,
     yearByYearProjection,
   };
 }
@@ -270,11 +294,19 @@ export function calculateCustomMix(
     accounts
   );
 
+  // Growth percentages
+  const oneYearDeposits = guaranteedDepositsPerYear;
+  const tenYearDeposits = guaranteedDepositsPerYear * 10;
+  const oneYearGrowthPercent = calculateGrowthPercent(oneYearProjectedPot, oneYearDeposits);
+  const tenYearGrowthPercent = calculateGrowthPercent(tenYearProjectedPot, tenYearDeposits);
+
   return {
     guaranteedDepositsPerYear,
     estimatedAnnualInterest,
     oneYearProjectedPot,
+    oneYearGrowthPercent,
     tenYearProjectedPot,
+    tenYearGrowthPercent,
     yearByYearProjection,
   };
 }
@@ -286,4 +318,10 @@ export function formatCurrency(amount: number): string {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+// Calculate growth percentage
+function calculateGrowthPercent(finalValue: number, totalDeposits: number): number {
+  if (totalDeposits === 0) return 0;
+  return ((finalValue - totalDeposits) / totalDeposits) * 100;
 }

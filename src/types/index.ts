@@ -54,7 +54,9 @@ export interface StrategyResult {
   guaranteedDepositsPerYear: number;
   estimatedAnnualInterest: number;
   oneYearProjectedPot: number;
+  oneYearGrowthPercent: number;
   tenYearProjectedPot: number;
+  tenYearGrowthPercent: number;
   yearByYearProjection: number[];
   allocation?: AllocationItem[];
 }
