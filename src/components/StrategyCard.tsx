@@ -69,8 +69,9 @@ export function StrategyCard({
           <p className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
             {formatCurrency(result.oneYearProjectedPot)}
           </p>
-          <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-            +{result.oneYearGrowthPercent.toFixed(1)}% growth
+          <p className="text-xs text-green-600 dark:text-green-400 mt-1 flex items-center gap-1">
+            <span>+{formatCurrency(result.oneYearProjectedPot - result.guaranteedDepositsPerYear)}</span>
+            <span className="opacity-80 tracking-tight">({result.oneYearGrowthPercent.toFixed(1)}%)</span>
           </p>
         </div>
         <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
@@ -80,8 +81,9 @@ export function StrategyCard({
           <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
             {formatCurrency(result.tenYearProjectedPot)}
           </p>
-          <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-            +{result.tenYearGrowthPercent.toFixed(1)}% growth
+          <p className="text-xs text-green-600 dark:text-green-400 mt-1 flex items-center gap-1">
+            <span>+{formatCurrency(result.tenYearProjectedPot - (result.guaranteedDepositsPerYear * 10))}</span>
+            <span className="opacity-80 tracking-tight">({result.tenYearGrowthPercent.toFixed(1)}%)</span>
           </p>
         </div>
       </div>
