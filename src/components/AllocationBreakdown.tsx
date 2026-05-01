@@ -65,10 +65,11 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
         {allocation.map((item, index) => {
           const isAtMax = item.monthlyMax !== undefined && item.monthlyAmount >= item.monthlyMax;
           const maxCapacityLimit = item.nativeMonthlyMax || item.monthlyMax || 0;
-          const capacityPercent = maxCapacityLimit > 0
-            ? (item.monthlyAmount / maxCapacityLimit) * 100
-            : 100;
           const overrideValue = overrides?.[item.provider] ?? maxCapacityLimit;
+          // overridePercent drives both the bar AND the dot so they are always in sync
+          const overridePercent = maxCapacityLimit > 0 ? (overrideValue / maxCapacityLimit) * 100 : 100;
+          // actualPercent shown as a lighter secondary layer inside the bar
+          const actualPercent = maxCapacityLimit > 0 ? (item.monthlyAmount / maxCapacityLimit) * 100 : 0;
 
           return (
             <div
@@ -111,8 +112,19 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       <div className="relative w-full h-4 flex items-center">
                         {/* Background actual fill bar */}
                         <div className="absolute inset-x-0 h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden pointer-events-none">
+                          {/* Cap indicator bar (synced with slider dot) */}
                           <div
-                            className={`h-full rounded-full transition-all ${isAtMax
+                            className={`h-full rounded-full transition-all opacity-30 ${item.type === 'regular'
+                              ? 'bg-purple-500'
+                              : item.type === 'easyAccess'
+                                ? 'bg-green-500'
+                                : 'bg-blue-500'
+                              }`}
+                            style={{ width: `${Math.min(overridePercent, 100)}%` }}
+                          />
+                          {/* Actual allocation bar on top */}
+                          <div
+                            className={`absolute inset-0 h-full rounded-full transition-all ${isAtMax
                               ? 'bg-green-500'
                               : item.type === 'regular'
                                 ? 'bg-purple-500'
@@ -120,7 +132,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                                   ? 'bg-green-500'
                                   : 'bg-blue-500'
                               }`}
-                            style={{ width: `${Math.min(capacityPercent, 100)}%` }}
+                            style={{ width: `${Math.min(actualPercent, 100)}%` }}
                           />
                         </div>
                         {/* Interactive slider — controls the cap/limit, not the actual allocation */}
@@ -151,7 +163,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                               ? 'bg-green-500'
                               : 'bg-blue-500'
                           }`}
-                        style={{ width: `${Math.min(capacityPercent, 100)}%` }}
+                        style={{ width: `${Math.min(actualPercent, 100)}%` }}
                       />
                     </div>
                   )}
@@ -164,7 +176,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       ) : null}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 text-right">
-                      {capacityPercent.toFixed(0)}% of account capacity
+                      {Math.round(actualPercent)}% of account capacity
                     </p>
                   </div>
                 </div>
