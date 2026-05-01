@@ -9,9 +9,6 @@ import { ThemeToggle } from './ThemeToggle';
 import { EligibilityFilter } from './EligibilityFilter';
 import {
   calculateOptimisedSplit,
-  calculateOneSavingsAccount,
-  calculateAllIndexFund,
-  calculateCustomMix,
 } from '@/utils/calculations';
 
 interface SavingsSimulatorProps {
@@ -66,15 +63,10 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
     };
   }, [accounts, selectedProviders]);
 
-  // Calculate all results for the chart using eligible accounts
-  const results = useMemo(() => {
-    return {
-      optimised: calculateOptimisedSplit(monthlyAmount, eligibleAccounts, overrides),
-      oneSavings: calculateOneSavingsAccount(monthlyAmount, eligibleAccounts),
-      allIndex: calculateAllIndexFund(monthlyAmount, eligibleAccounts),
-      custom: calculateCustomMix(monthlyAmount, customMix, eligibleAccounts),
-    };
-  }, [monthlyAmount, customMix, eligibleAccounts, overrides]);
+  // Calculate results for the chart using eligible accounts
+  const optimisedResult = useMemo(() => {
+    return calculateOptimisedSplit(monthlyAmount, eligibleAccounts, overrides);
+  }, [monthlyAmount, eligibleAccounts, overrides]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -99,7 +91,7 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
           <SavingsSlider
             value={monthlyAmount}
             onChange={setMonthlyAmount}
-            effectiveMonthlyAmount={results.optimised.actualMonthlySaved}
+            effectiveMonthlyAmount={optimisedResult.actualMonthlySaved}
           />
         </section>
 
@@ -126,10 +118,8 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
         {/* 10 Year Projection Chart */}
         <section>
           <ProjectionChart
-            optimised={results.optimised}
-            oneSavings={results.oneSavings}
-            allIndex={results.allIndex}
-            custom={results.custom}
+            optimised={optimisedResult}
+            monthlyAmount={monthlyAmount}
           />
         </section>
 

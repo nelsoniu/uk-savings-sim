@@ -1,7 +1,7 @@
 import { AccountsData, StrategyResult, CustomMix, AllocationItem, AllocationOverrides } from '@/types';
 
 // Calculate compound interest for savings accounts
-function calculateSavingsGrowth(
+export function calculateSavingsGrowth(
   monthlyDeposit: number,
   annualRate: number,
   years: number
@@ -17,7 +17,7 @@ function calculateSavingsGrowth(
 }
 
 // Calculate projected growth for index funds (compound growth)
-function calculateIndexGrowth(
+export function calculateIndexGrowth(
   monthlyDeposit: number,
   annualReturn: number,
   years: number
