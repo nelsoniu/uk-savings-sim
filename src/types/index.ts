@@ -62,6 +62,7 @@ export interface StrategyResult {
   tenYearGrowthPercent: number;
   yearByYearProjection: number[];
   allocation?: AllocationItem[];
+  actualMonthlySaved?: number;
 }
 
 export interface CustomMix {
