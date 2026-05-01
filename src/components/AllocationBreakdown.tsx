@@ -90,7 +90,10 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                   )}
                 </div>
                 <span className={`font-bold ${getRateColor(item.type)}`}>
-                  {item.rate}%{item.type === 'index' ? '*' : ''}
+                  {item.rate}%
+                  <span className="text-xs font-normal text-gray-400 dark:text-gray-500 ml-0.5">
+                    {item.type === 'index' ? '* proj.' : 'AER'}
+                  </span>
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm">
