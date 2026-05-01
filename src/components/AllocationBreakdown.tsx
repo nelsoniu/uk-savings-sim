@@ -173,10 +173,25 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       />
                     </div>
                   )}
-                  <p className="text-xs text-gray-500 dark:text-gray-400 text-right mt-1">
-                    {Math.round(fillPercent)}% of account capacity
-                  </p>
+                  <div className="flex justify-between items-center mt-1">
+                    {item.type === 'easyAccess' ? (
+                      <p className="text-xs text-green-600 dark:text-green-400">
+                        Drag slider to adjust your easy access allocation
+                      </p>
+                    ) : (
+                      <span />
+                    )}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 text-right">
+                      {item.type === 'regular' ? `${Math.round(fillPercent)}% of account capacity` : ''}
+                    </p>
+                  </div>
                 </div>
+              )}
+              {/* Easy access note about other options */}
+              {item.type === 'easyAccess' && (
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+                  Other easy access options: Chase (4.5%), Chip (4.84%), Monzo (4.75%)
+                </p>
               )}
             </div>
           );
