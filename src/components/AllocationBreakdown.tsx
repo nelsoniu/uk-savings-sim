@@ -190,7 +190,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
               {/* Easy access note about other options */}
               {item.type === 'easyAccess' && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
-                  Other easy access options: Chase (4.5%), Chip (4.84%), Monzo (4.75%)
+                  Other options: Atom Bank (4.75%), Trading 212 (4.72%), Plum (4.68%), Marcus (4.5%)
                 </p>
               )}
             </div>
