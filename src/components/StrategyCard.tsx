@@ -10,6 +10,7 @@ interface StrategyCardProps {
   affiliateUrl: string;
   affiliateText: string;
   children?: React.ReactNode;
+  hideMainCta?: boolean;
 }
 
 export function StrategyCard({
@@ -19,6 +20,7 @@ export function StrategyCard({
   affiliateUrl,
   affiliateText,
   children,
+  hideMainCta = false,
 }: StrategyCardProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
@@ -101,25 +103,27 @@ export function StrategyCard({
         </div>
       </div>
 
-      <a
-        href={affiliateUrl}
-        className="inline-flex items-center justify-center w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
-      >
-        {affiliateText}
-        <svg
-          className="w-4 h-4 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      {!hideMainCta && (
+        <a
+          href={affiliateUrl}
+          className="inline-flex items-center justify-center w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M14 5l7 7m0 0l-7 7m7-7H3"
-          />
-        </svg>
-      </a>
+          {affiliateText}
+          <svg
+            className="w-4 h-4 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </a>
+      )}
     </div>
   );
 }

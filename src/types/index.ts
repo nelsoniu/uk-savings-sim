@@ -51,6 +51,7 @@ export interface AllocationItem {
   nativeMonthlyMax?: number;
   rate: number;
   type: 'regular' | 'easyAccess' | 'index';
+  affiliateUrl?: string;
 }
 
 export interface StrategyResult {

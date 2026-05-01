@@ -114,6 +114,7 @@ export function StrategyTabs({
         result={current.result}
         affiliateUrl={current.affiliateUrl}
         affiliateText={current.affiliateText}
+        hideMainCta={activeTab === 'optimised'}
       >
         {activeTab === 'optimised' && optimisedResult.allocation && (
           <AllocationBreakdown

@@ -67,6 +67,17 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
     }
   };
 
+  const getButtonColor = (type: AllocationItem['type']) => {
+    switch (type) {
+      case 'regular':
+        return 'bg-purple-600 hover:bg-purple-700 text-white';
+      case 'easyAccess':
+        return 'bg-green-600 hover:bg-green-700 text-white';
+      case 'index':
+        return 'bg-blue-600 hover:bg-blue-700 text-white';
+    }
+  };
+
   return (
     <div className="space-y-3">
       <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -192,6 +203,28 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
                   Other options: Atom Bank (4.75%), Trading 212 (4.72%), Plum (4.68%), Marcus (4.5%)
                 </p>
+              )}
+              {/* Individual account CTA button */}
+              {item.affiliateUrl && item.monthlyAmount > 0 && (
+                <a
+                  href={item.affiliateUrl}
+                  className={`mt-3 inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors ${getButtonColor(item.type)}`}
+                >
+                  Open {item.provider} Account
+                  <svg
+                    className="ml-2 w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
               )}
             </div>
           );

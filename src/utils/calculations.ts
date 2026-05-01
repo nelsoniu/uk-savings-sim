@@ -100,6 +100,7 @@ export function calculateOptimisedSplit(
       nativeMonthlyMax: acc.monthlyMax,
       rate: acc.rate,
       type: 'regular',
+      affiliateUrl: acc.affiliateUrl,
     });
 
     if (allocated > 0) {
@@ -128,6 +129,7 @@ export function calculateOptimisedSplit(
       nativeMonthlyMax: monthlyAmount, // No hard limit, but use budget as reference
       rate: easyAccessRate,
       type: 'easyAccess',
+      affiliateUrl: easyAccessAccount.affiliateUrl,
     });
   }
 
