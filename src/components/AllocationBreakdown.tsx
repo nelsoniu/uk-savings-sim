@@ -45,6 +45,18 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
     }
   };
 
+  const getEligibilityBadge = (item: AllocationItem) => {
+    if (item.type !== 'regular' || !item.eligibility) return null;
+    switch (item.eligibility) {
+      case 'open-to-all':
+        return { label: 'Open to All', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-300 dark:border-green-700' };
+      case 'existing-customer':
+        return { label: 'Existing Customer', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-300 dark:border-amber-700' };
+      case 'existing-member':
+        return { label: 'Existing Member', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700' };
+    }
+  };
+
   const getTypeTooltip = (type: AllocationItem['type']) => {
     switch (type) {
       case 'regular':
@@ -111,6 +123,26 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       </svg>
                     </div>
                   </div>
+                  {/* Eligibility badge */}
+                  {getEligibilityBadge(item) && (
+                    <span className={`text-xs px-2 py-0.5 rounded-full border ${getEligibilityBadge(item)!.color}`}>
+                      {getEligibilityBadge(item)!.label}
+                    </span>
+                  )}
+                  {/* Withdrawal warning */}
+                  {item.type === 'regular' && item.allowsWithdrawals === false && (
+                    <div className="group relative inline-flex items-center">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-300 dark:border-red-700 font-medium cursor-help">
+                        🚫 No withdrawals
+                      </span>
+                      <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 opacity-0 transition-opacity group-hover:opacity-100 z-20 bg-gray-800 dark:bg-gray-700 shadow-xl text-white text-xs rounded-md py-2 px-3 text-center font-normal leading-relaxed">
+                        You cannot withdraw money or skip months during the term. Early closure may reduce your rate significantly.
+                        <svg className="absolute left-1/2 top-full -mt-px -translate-x-1/2 text-gray-800 dark:text-gray-700 h-2 w-full" x="0px" y="0px" viewBox="0 0 255 255">
+                          <polygon className="fill-current" points="0,0 127.5,127.5 255,0" />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                   {isAtMax && (
                     <span className="text-xs px-2 py-0.5 rounded-full bg-green-500 text-white font-medium">
                       MAXED

@@ -63,6 +63,10 @@ export interface AllocationItem {
   rate: number;
   type: 'regular' | 'easyAccess' | 'index';
   affiliateUrl?: string;
+  eligibility?: EligibilityType;
+  linkedProduct?: string;
+  allowsWithdrawals?: boolean;
+  allowsSkippedMonths?: boolean;
 }
 
 export interface StrategyResult {

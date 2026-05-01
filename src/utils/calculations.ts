@@ -101,6 +101,10 @@ export function calculateOptimisedSplit(
       rate: acc.rate,
       type: 'regular',
       affiliateUrl: acc.affiliateUrl,
+      eligibility: acc.eligibility,
+      linkedProduct: acc.linkedProduct,
+      allowsWithdrawals: acc.allowsWithdrawals,
+      allowsSkippedMonths: acc.allowsSkippedMonths,
     });
 
     if (allocated > 0) {
