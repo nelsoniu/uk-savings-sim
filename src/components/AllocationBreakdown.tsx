@@ -63,13 +63,10 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
       </h4>
       <div className="space-y-2">
         {allocation.map((item, index) => {
-          const isAtMax = item.monthlyMax !== undefined && item.monthlyAmount >= item.monthlyMax;
-          const maxCapacityLimit = item.nativeMonthlyMax || item.monthlyMax || 0;
-          const overrideValue = overrides?.[item.provider] ?? maxCapacityLimit;
-          // overridePercent drives both the bar AND the dot so they are always in sync
-          const overridePercent = maxCapacityLimit > 0 ? (overrideValue / maxCapacityLimit) * 100 : 100;
-          // actualPercent shown as a lighter secondary layer inside the bar
-          const actualPercent = maxCapacityLimit > 0 ? (item.monthlyAmount / maxCapacityLimit) * 100 : 0;
+          const nativeMax = item.nativeMonthlyMax || item.monthlyMax || 0;
+          const isAtMax = item.monthlyAmount > 0 && nativeMax > 0 && item.monthlyAmount >= nativeMax;
+          // Progress bar width = contribution amount as % of native max
+          const fillPercent = nativeMax > 0 ? (item.monthlyAmount / nativeMax) * 100 : 0;
 
           return (
             <div
@@ -97,34 +94,24 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
               <div className="flex items-center justify-between text-sm">
                 <span className="text-gray-600 dark:text-gray-400">
                   {formatCurrency(item.monthlyAmount)}/mo
-                  {item.monthlyMax !== undefined && (
+                  {nativeMax > 0 && item.type !== 'index' && (
                     <span className="text-gray-400 dark:text-gray-500">
-                      {' '}of {formatCurrency(item.monthlyMax)} max
+                      {' '}of {formatCurrency(nativeMax)} max
                     </span>
                   )}
                 </span>
               </div>
-              {/* Capacity bar - shows how full this account is or custom user slider */}
-              {maxCapacityLimit > 0 && (
+              {/* Capacity bar with slider - slider controls contribution amount directly */}
+              {nativeMax > 0 && (
                 <div className="mt-2">
                   {onOverrideChange ? (
                     <div className="relative pt-1 flex items-center gap-2">
                       <div className="relative w-full h-4 flex items-center">
-                        {/* Background actual fill bar */}
+                        {/* Progress bar background */}
                         <div className="absolute inset-x-0 h-2 bg-white/50 dark:bg-black/20 rounded-full overflow-hidden pointer-events-none">
-                          {/* Cap indicator bar (synced with slider dot) */}
+                          {/* Fill bar - synced with slider value */}
                           <div
-                            className={`h-full rounded-full transition-all opacity-30 ${item.type === 'regular'
-                              ? 'bg-purple-500'
-                              : item.type === 'easyAccess'
-                                ? 'bg-green-500'
-                                : 'bg-blue-500'
-                              }`}
-                            style={{ width: `${Math.min(overridePercent, 100)}%` }}
-                          />
-                          {/* Actual allocation bar on top */}
-                          <div
-                            className={`absolute inset-0 h-full rounded-full transition-all ${isAtMax
+                            className={`h-full rounded-full transition-all ${isAtMax
                               ? 'bg-green-500'
                               : item.type === 'regular'
                                 ? 'bg-purple-500'
@@ -132,16 +119,16 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                                   ? 'bg-green-500'
                                   : 'bg-blue-500'
                               }`}
-                            style={{ width: `${Math.min(actualPercent, 100)}%` }}
+                            style={{ width: `${Math.min(fillPercent, 100)}%` }}
                           />
                         </div>
-                        {/* Interactive slider — controls the cap/limit, not the actual allocation */}
+                        {/* Slider - controls contribution amount, synced with progress bar */}
                         <input
                           type="range"
                           min="0"
-                          max={maxCapacityLimit}
+                          max={nativeMax}
                           step="10"
-                          value={overrideValue}
+                          value={item.monthlyAmount}
                           onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
                           className={`absolute inset-0 w-full h-full cursor-pointer z-10 m-0 transparent-track bg-transparent ${item.type === 'regular'
                             ? 'accent-purple-500'
@@ -163,29 +150,14 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                               ? 'bg-green-500'
                               : 'bg-blue-500'
                           }`}
-                        style={{ width: `${Math.min(actualPercent, 100)}%` }}
+                        style={{ width: `${Math.min(fillPercent, 100)}%` }}
                       />
                     </div>
                   )}
-                  <div className="flex justify-between items-center mt-1">
-                    <p className="text-xs">
-                      {item.monthlyAmount === 0 && overrideValue > 0 ? (
-                        <span className="text-blue-500 dark:text-blue-400">Waiting for budget — increase monthly savings or reduce higher-rate account caps</span>
-                      ) : onOverrideChange && overrideValue < maxCapacityLimit ? (
-                        <span className="text-amber-600 dark:text-amber-500 font-medium tracking-tight">Cap reduced to {formatCurrency(overrideValue)}</span>
-                      ) : null}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 text-right">
-                      {Math.round(actualPercent)}% of account capacity
-                    </p>
-                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 text-right mt-1">
+                    {Math.round(fillPercent)}% of account capacity
+                  </p>
                 </div>
-              )}
-              {/* Index funds have no max */}
-              {!item.monthlyMax && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                  No monthly limit
-                </p>
               )}
             </div>
           );

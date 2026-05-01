@@ -64,33 +64,39 @@ export function calculateOptimisedSplit(
   accounts: AccountsData,
   overrides?: AllocationOverrides
 ): StrategyResult {
-  // Calculate total monthly capacity for regular savers applying overrides where applicable
-  const totalRegularCapacity = accounts.regularSavers.reduce(
-    (sum, acc) => sum + (overrides?.[acc.provider] ?? acc.monthlyMax),
-    0
-  );
-
-  // How much goes to regular savers vs overflow to index
-  const regularSaverAmount = Math.min(monthlyAmount, totalRegularCapacity);
-  const indexAmount = Math.max(0, monthlyAmount - totalRegularCapacity);
-
-  // Build allocation breakdown and calculate weighted rate
-  const allocation: AllocationItem[] = [];
-  let weightedRateSum = 0;
-  let remainingToAllocate = regularSaverAmount;
-
-  // Sort by rate descending and allocate
+  // Separate pinned accounts (user slider) from unpinned (auto-cascade)
   const sortedRegularSavers = [...accounts.regularSavers].sort((a, b) => b.rate - a.rate);
 
+  const pinnedAmount = accounts.regularSavers.reduce((sum, acc) => {
+    if (overrides?.[acc.provider] !== undefined) {
+      return sum + Math.min(overrides[acc.provider], acc.monthlyMax);
+    }
+    return sum;
+  }, 0);
+
+  let remainingAfterPinned = Math.max(0, monthlyAmount - pinnedAmount);
+
+  // Build allocation breakdown
+  const allocation: AllocationItem[] = [];
+  let weightedRateSum = 0;
+  let totalRegularAllocated = 0;
+
   for (const acc of sortedRegularSavers) {
-    const customMax = overrides?.[acc.provider] ?? acc.monthlyMax;
-    const allocated = Math.max(0, Math.min(remainingToAllocate, customMax));
+    let allocated: number;
+    if (overrides?.[acc.provider] !== undefined) {
+      // Pinned: exactly what the user chose (capped to account native max)
+      allocated = Math.min(overrides[acc.provider], acc.monthlyMax);
+    } else {
+      // Unpinned: cascade from remaining budget
+      allocated = Math.max(0, Math.min(remainingAfterPinned, acc.monthlyMax));
+      remainingAfterPinned -= allocated;
+    }
 
     allocation.push({
       name: acc.name,
       provider: acc.provider,
       monthlyAmount: allocated,
-      monthlyMax: customMax,
+      monthlyMax: acc.monthlyMax,
       nativeMonthlyMax: acc.monthlyMax,
       rate: acc.rate,
       type: 'regular',
@@ -98,26 +104,31 @@ export function calculateOptimisedSplit(
 
     if (allocated > 0) {
       weightedRateSum += allocated * acc.rate;
-      remainingToAllocate -= allocated;
+      totalRegularAllocated += allocated;
     }
   }
 
-  const avgRegularRate = regularSaverAmount > 0 ? weightedRateSum / regularSaverAmount : 0;
+  const avgRegularRate = totalRegularAllocated > 0 ? weightedRateSum / totalRegularAllocated : 0;
 
-  // Add index fund allocation if there's overflow
+  const indexAmount = Math.max(0, monthlyAmount - totalRegularAllocated - pinnedAmount + (overrides?.[accounts.indexFunds[0].provider] !== undefined ? 0 : 0));
+  //  = budget NOT consumed by regular savers
+  const remainingForIndex = Math.max(0, monthlyAmount - totalRegularAllocated);
+
+  // Add index fund — always shown so user can adjust with slider
   let indexAmountActual = 0;
-  if (indexAmount > 0) {
+  {
     const indexFund = accounts.indexFunds[0];
-    const indexCap = overrides?.[indexFund.provider];
-    indexAmountActual = indexCap !== undefined ? Math.min(indexAmount, indexCap) : indexAmount;
+    const indexOverride = overrides?.[indexFund.provider];
+    indexAmountActual = indexOverride !== undefined
+      ? Math.min(indexOverride, remainingForIndex)
+      : remainingForIndex;
 
-    // Always render index fund in the allocation list
     allocation.push({
       name: indexFund.name,
       provider: indexFund.provider,
       monthlyAmount: indexAmountActual,
-      monthlyMax: indexCap,
-      nativeMonthlyMax: monthlyAmount, // Allow slider up to the total original input
+      monthlyMax: indexFund.projectedReturn, // placeholder — no native max
+      nativeMonthlyMax: monthlyAmount,
       rate: indexFund.projectedReturn,
       type: 'index',
     });
@@ -126,7 +137,7 @@ export function calculateOptimisedSplit(
   const indexReturn = accounts.defaultIndexReturn;
 
   // Guaranteed deposits per year from actual accepted amounts
-  const actualMonthlySaved = (regularSaverAmount > 0 ? Array.from(allocation).filter(a => a.type === 'regular').reduce((s, a) => s + a.monthlyAmount, 0) : 0) + indexAmountActual;
+  const actualMonthlySaved = totalRegularAllocated + indexAmountActual;
   const guaranteedDepositsPerYear = actualMonthlySaved * 12;
 
   // Estimated annual interest (first year)
