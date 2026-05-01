@@ -1,39 +1,17 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { AccountsData, CustomMix, AllocationOverrides } from '@/types';
 import { SavingsSlider } from './SavingsSlider';
 import { StrategyTabs } from './StrategyTabs';
 import { ProjectionChart } from './ProjectionChart';
 import { ThemeToggle } from './ThemeToggle';
-import { EligibilityFilter } from './EligibilityFilter';
 import {
   calculateOptimisedSplit,
 } from '@/utils/calculations';
 
 interface SavingsSimulatorProps {
   accounts: AccountsData;
-}
-
-const STORAGE_KEY = 'uk-savings-sim-providers';
-
-function loadSelectedProviders(): string[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveSelectedProviders(providers: string[]) {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(providers));
-  } catch {
-    // localStorage not available
-  }
 }
 
 export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
@@ -44,29 +22,11 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
     indexPercent: 40,
   });
   const [overrides, setOverrides] = useState<AllocationOverrides>({});
-  const [selectedProviders, setSelectedProviders] = useState<string[]>(loadSelectedProviders);
 
-  // Persist selected providers to localStorage
-  useEffect(() => {
-    saveSelectedProviders(selectedProviders);
-  }, [selectedProviders]);
-
-  // Filter accounts based on selected providers
-  const eligibleAccounts = useMemo(() => {
-    const filteredRegularSavers = accounts.regularSavers.filter((acc) => {
-      if (acc.eligibility === 'open-to-all') return true;
-      return selectedProviders.includes(acc.provider);
-    });
-    return {
-      ...accounts,
-      regularSavers: filteredRegularSavers,
-    };
-  }, [accounts, selectedProviders]);
-
-  // Calculate results for the chart using eligible accounts
+  // Calculate results for the chart using all accounts (no eligibility filter)
   const optimisedResult = useMemo(() => {
-    return calculateOptimisedSplit(monthlyAmount, eligibleAccounts, overrides);
-  }, [monthlyAmount, eligibleAccounts, overrides]);
+    return calculateOptimisedSplit(monthlyAmount, accounts, overrides);
+  }, [monthlyAmount, accounts, overrides]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -97,14 +57,9 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
 
         {/* Strategy Tabs */}
         <section>
-          <EligibilityFilter
-            accounts={accounts}
-            selectedProviders={selectedProviders}
-            onChange={setSelectedProviders}
-          />
           <StrategyTabs
             monthlyAmount={monthlyAmount}
-            accounts={eligibleAccounts}
+            accounts={accounts}
             customMix={customMix}
             onCustomMixChange={setCustomMix}
             overrides={overrides}
