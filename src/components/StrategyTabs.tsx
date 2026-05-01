@@ -59,7 +59,7 @@ export function StrategyTabs({
   const strategies = {
     optimised: {
       title: 'Optimised Split',
-      description: `Fills high-rate regular savers (up to £${totalRegularCapacity}/mo) first, then overflows to VWRA index fund`,
+      description: `Fills high-rate regular savers (up to £${totalRegularCapacity}/mo) first, then overflows to easy access at ${accounts.defaultEasyAccessRate}%`,
       result: optimisedResult,
       affiliateUrl: '#optimised-accounts',
       affiliateText: 'Open These Accounts',

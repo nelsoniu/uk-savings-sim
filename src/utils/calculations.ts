@@ -58,7 +58,7 @@ function getYearByYearProjection(
   return projection;
 }
 
-// Strategy 1: Optimised Split - fills regular savers first, then index fund
+// Strategy 1: Optimised Split - fills regular savers first, then easy access
 export function calculateOptimisedSplit(
   monthlyAmount: number,
   accounts: AccountsData,
@@ -108,60 +108,55 @@ export function calculateOptimisedSplit(
     }
   }
 
-  const avgRegularRate = totalRegularAllocated > 0 ? weightedRateSum / totalRegularAllocated : 0;
+  // Remaining budget goes to easy access (FSCS protected, guaranteed rate)
+  const easyAccessRate = accounts.defaultEasyAccessRate;
+  const remainingForEasyAccess = Math.max(0, monthlyAmount - totalRegularAllocated);
 
-  const indexAmount = Math.max(0, monthlyAmount - totalRegularAllocated - pinnedAmount + (overrides?.[accounts.indexFunds[0].provider] !== undefined ? 0 : 0));
-  //  = budget NOT consumed by regular savers
-  const remainingForIndex = Math.max(0, monthlyAmount - totalRegularAllocated);
+  // Get easy access account details
+  const easyAccessAccount = accounts.easyAccess[0];
+  const easyAccessOverride = overrides?.[easyAccessAccount?.provider];
+  const easyAccessAmount = easyAccessOverride !== undefined
+    ? Math.min(easyAccessOverride, remainingForEasyAccess)
+    : remainingForEasyAccess;
 
-  // Add index fund — always shown so user can adjust with slider
-  let indexAmountActual = 0;
-  {
-    const indexFund = accounts.indexFunds[0];
-    const indexOverride = overrides?.[indexFund.provider];
-    indexAmountActual = indexOverride !== undefined
-      ? Math.min(indexOverride, remainingForIndex)
-      : remainingForIndex;
-
+  // Add easy access account if there's overflow
+  if (easyAccessAccount) {
     allocation.push({
-      name: indexFund.name,
-      provider: indexFund.provider,
-      monthlyAmount: indexAmountActual,
-      monthlyMax: indexFund.projectedReturn, // placeholder — no native max
-      nativeMonthlyMax: monthlyAmount,
-      rate: indexFund.projectedReturn,
-      type: 'index',
+      name: easyAccessAccount.name,
+      provider: easyAccessAccount.provider,
+      monthlyAmount: easyAccessAmount,
+      nativeMonthlyMax: monthlyAmount, // No hard limit, but use budget as reference
+      rate: easyAccessRate,
+      type: 'easyAccess',
     });
   }
 
-  const indexReturn = accounts.defaultIndexReturn;
-
   // Guaranteed deposits per year from actual accepted amounts
-  const actualMonthlySaved = totalRegularAllocated + indexAmountActual;
+  const actualMonthlySaved = totalRegularAllocated + easyAccessAmount;
   const guaranteedDepositsPerYear = actualMonthlySaved * 12;
 
   // Estimated annual interest (first year)
   const regularInterest = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + (acc.monthlyAmount * 12 * (acc.rate / 100) * 0.5), 0);
-  const indexGain = indexAmountActual * 12 * (indexReturn / 100) * 0.5;
-  const estimatedAnnualInterest = Math.round(regularInterest + indexGain);
+  const easyAccessInterest = easyAccessAmount * 12 * (easyAccessRate / 100) * 0.5;
+  const estimatedAnnualInterest = Math.round(regularInterest + easyAccessInterest);
 
   // 1 year projection
   const regularTotal1yr = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + calculateSavingsGrowth(acc.monthlyAmount, acc.rate, 1), 0);
-  const indexTotal1yr = calculateIndexGrowth(indexAmountActual, indexReturn, 1);
-  const oneYearProjectedPot = Math.round(regularTotal1yr + indexTotal1yr);
+  const easyAccessTotal1yr = calculateSavingsGrowth(easyAccessAmount, easyAccessRate, 1);
+  const oneYearProjectedPot = Math.round(regularTotal1yr + easyAccessTotal1yr);
 
   // 10 year projection
   const regularTotal = allocation.filter(a => a.type === 'regular').reduce((sum, acc) => sum + calculateSavingsGrowth(acc.monthlyAmount, acc.rate, 10), 0);
-  const indexTotal = calculateIndexGrowth(indexAmountActual, indexReturn, 10);
-  const tenYearProjectedPot = Math.round(regularTotal + indexTotal);
+  const easyAccessTotal = calculateSavingsGrowth(easyAccessAmount, easyAccessRate, 10);
+  const tenYearProjectedPot = Math.round(regularTotal + easyAccessTotal);
 
   // Year by year
   const actualRegularTotal = allocation.filter(a => a.type === 'regular').reduce((s, a) => s + a.monthlyAmount, 0);
   const yearByYearProjection = getYearByYearProjection(
     actualMonthlySaved,
     actualRegularTotal,
+    easyAccessAmount,
     0,
-    indexAmountActual,
     accounts
   );
 
