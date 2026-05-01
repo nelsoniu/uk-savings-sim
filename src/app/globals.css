@@ -23,13 +23,13 @@ input[type="range"] {
   cursor: pointer;
 }
 
-input[type="range"]::-webkit-slider-track {
+input[type="range"]::-webkit-slider-runnable-track {
   background: #e5e7eb;
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
-.dark input[type="range"]::-webkit-slider-track {
+.dark input[type="range"]::-webkit-slider-runnable-track {
   background: #374151;
 }
 
