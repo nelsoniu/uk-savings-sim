@@ -57,12 +57,15 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
     }
   };
 
-  const getTypeTooltip = (type: AllocationItem['type']) => {
-    switch (type) {
+  const getTypeTooltip = (item: AllocationItem) => {
+    const payoutLabel = item.interestPayout
+      ? `Interest paid ${item.interestPayout === 'daily' ? 'daily' : item.interestPayout}.`
+      : '';
+    switch (item.type) {
       case 'regular':
-        return 'Fixed monthly deposit, higher rates, 12-month term. FSCS protected up to £85k.';
+        return `Fixed monthly deposit, higher rates, 12-month term. FSCS protected up to £85k. ${payoutLabel}`;
       case 'easyAccess':
-        return 'Withdraw anytime, no fixed term. Lower rate but flexible. FSCS protected up to £85k.';
+        return `Withdraw anytime, no fixed term. Lower rate but flexible. FSCS protected up to £85k. ${payoutLabel}`;
       case 'index':
         return 'Invests in global stocks. Higher potential returns but value can go down.';
     }
@@ -117,7 +120,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                       {getTypeLabel(item.type)}
                     </span>
                     <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 opacity-0 transition-opacity group-hover:opacity-100 z-20 bg-gray-800 dark:bg-gray-700 shadow-xl text-white text-xs rounded-md py-2 px-3 text-center font-normal leading-relaxed">
-                      {getTypeTooltip(item.type)}
+                      {getTypeTooltip(item)}
                       <svg className="absolute left-1/2 top-full -mt-px -translate-x-1/2 text-gray-800 dark:text-gray-700 h-2 w-full" x="0px" y="0px" viewBox="0 0 255 255">
                         <polygon className="fill-current" points="0,0 127.5,127.5 255,0" />
                       </svg>
@@ -151,6 +154,11 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                 </div>
                 <span className={`font-bold ${getRateColor(item.type)}`}>
                   {item.rate}% {item.type === 'index' ? 'proj.*' : 'AER'}
+                  {item.interestPayout && item.type !== 'index' && (
+                    <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 ml-1">
+                      paid {item.interestPayout}
+                    </span>
+                  )}
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm">

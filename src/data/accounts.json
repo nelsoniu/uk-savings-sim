@@ -15,13 +15,14 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Zopa Biscuit current account",
-      "affiliateUrl": "https://www.zopa.com/regular-saver"
+      "affiliateUrl": "https://www.zopa.com/regular-saver",
+      "interestPayout": "annually"
     },
     {
       "id": "first-direct-regular",
       "name": "Regular Saver",
       "provider": "First Direct",
-      "rate": 7.0,
+      "rate": 7,
       "rateType": "fixed",
       "monthlyMax": 300,
       "annualMax": 3600,
@@ -31,13 +32,14 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires 1st Account. No withdrawals, min £25/month. Early closure = 1.75% rate.",
-      "affiliateUrl": "https://www.firstdirect.com/savings-and-investments/savings/regular-saver-account/"
+      "affiliateUrl": "https://www.firstdirect.com/savings-and-investments/savings/regular-saver-account/",
+      "interestPayout": "annually"
     },
     {
       "id": "coop-regular",
       "name": "Regular Saver",
       "provider": "Co-operative Bank",
-      "rate": 7.0,
+      "rate": 7,
       "rateType": "variable",
       "monthlyMax": 250,
       "annualMax": 3000,
@@ -47,7 +49,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Co-operative Bank current account",
-      "affiliateUrl": "https://www.co-operativebank.co.uk/savings/regular-saver/"
+      "affiliateUrl": "https://www.co-operativebank.co.uk/savings/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "nationwide-flex-regular",
@@ -63,7 +66,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires FlexDirect or FlexPlus current account. Max 3 withdrawals/year.",
-      "affiliateUrl": "https://www.nationwide.co.uk/savings/flex-regular-saver"
+      "affiliateUrl": "https://www.nationwide.co.uk/savings/flex-regular-saver",
+      "interestPayout": "annually"
     },
     {
       "id": "lloyds-club-regular",
@@ -79,13 +83,14 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Club Lloyds current account",
-      "affiliateUrl": "https://www.lloydsbank.com/savings/club-lloyds-monthly-saver.html"
+      "affiliateUrl": "https://www.lloydsbank.com/savings/club-lloyds-monthly-saver.html",
+      "interestPayout": "annually"
     },
     {
       "id": "monmouthshire-regular",
       "name": "Regular Saver",
       "provider": "Monmouthshire BS",
-      "rate": 6.0,
+      "rate": 6,
       "rateType": "variable",
       "monthlyMax": 500,
       "annualMax": 6000,
@@ -94,7 +99,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Open to all. App or branch only. Not available in Northern Ireland.",
-      "affiliateUrl": "https://www.monbs.com/savings/regular-saver/"
+      "affiliateUrl": "https://www.monbs.com/savings/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "skipton-regular",
@@ -109,7 +115,8 @@
       "requirements": "Must have been a member since before 10 Nov 2025. Tracks 2% above BoE base rate.",
       "allowsWithdrawals": false,
       "allowsSkippedMonths": true,
-      "affiliateUrl": "https://www.skipton.co.uk/savings/regular-savings"
+      "affiliateUrl": "https://www.skipton.co.uk/savings/regular-savings",
+      "interestPayout": "annually"
     },
     {
       "id": "bos-regular",
@@ -125,7 +132,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Bank of Scotland current account",
-      "affiliateUrl": "https://www.bankofscotland.co.uk/savings/regular-saver.html"
+      "affiliateUrl": "https://www.bankofscotland.co.uk/savings/regular-saver.html",
+      "interestPayout": "annually"
     },
     {
       "id": "halifax-regular",
@@ -141,7 +149,8 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires Halifax current account. No withdrawals, early closure permitted.",
-      "affiliateUrl": "https://www.halifax.co.uk/savings/accounts/regular-saver/"
+      "affiliateUrl": "https://www.halifax.co.uk/savings/accounts/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "manchester-regular",
@@ -156,7 +165,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Open to all. 24-month term. Online or branch.",
-      "affiliateUrl": "https://www.themanchester.co.uk/savings/regular-saver/"
+      "affiliateUrl": "https://www.themanchester.co.uk/savings/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "natwest-regular",
@@ -173,7 +183,8 @@
       "allowsSkippedMonths": true,
       "requirements": "Requires NatWest current account. +1.75% if you switch to Reward/Select account.",
       "affiliateUrl": "https://www.natwest.com/savings/digital-regular-saver.html",
-      "bonusNote": "Switch to NatWest Reward/Select account to get +1.75% boost (up to 7%) + £150 cash"
+      "bonusNote": "Switch to NatWest Reward/Select account to get +1.75% boost (up to 7%) + £150 cash",
+      "interestPayout": "annually"
     },
     {
       "id": "rbs-regular",
@@ -190,7 +201,8 @@
       "allowsSkippedMonths": true,
       "requirements": "Requires RBS current account. +1.75% if you switch to Reward/Select account.",
       "affiliateUrl": "https://www.rbs.co.uk/savings/digital-regular-saver.html",
-      "bonusNote": "Switch to RBS Reward/Select account to get +1.75% boost (up to 7%) + £150 cash"
+      "bonusNote": "Switch to RBS Reward/Select account to get +1.75% boost (up to 7%) + £150 cash",
+      "interestPayout": "annually"
     },
     {
       "id": "lloyds-regular",
@@ -206,13 +218,14 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Lloyds current account",
-      "affiliateUrl": "https://www.lloydsbank.com/savings/regular-saver.html"
+      "affiliateUrl": "https://www.lloydsbank.com/savings/regular-saver.html",
+      "interestPayout": "annually"
     },
     {
       "id": "tsb-regular",
       "name": "Regular Saver",
       "provider": "TSB",
-      "rate": 5.0,
+      "rate": 5,
       "rateType": "fixed",
       "monthlyMax": 250,
       "annualMax": 3000,
@@ -222,13 +235,14 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires TSB current account. Withdrawals allowed but can't replace funds.",
-      "affiliateUrl": "https://www.tsb.co.uk/savings/regular-saver/"
+      "affiliateUrl": "https://www.tsb.co.uk/savings/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "hsbc-regular",
       "name": "Regular Saver",
       "provider": "HSBC",
-      "rate": 5.0,
+      "rate": 5,
       "rateType": "fixed",
       "monthlyMax": 250,
       "annualMax": 3000,
@@ -238,13 +252,14 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires HSBC current account. No withdrawals, min £25/month. Early closure = 1.75% rate.",
-      "affiliateUrl": "https://www.hsbc.co.uk/savings/products/regular-saver/"
+      "affiliateUrl": "https://www.hsbc.co.uk/savings/products/regular-saver/",
+      "interestPayout": "annually"
     },
     {
       "id": "santander-regular",
       "name": "Regular Saver",
       "provider": "Santander",
-      "rate": 5.0,
+      "rate": 5,
       "rateType": "fixed",
       "monthlyMax": 200,
       "annualMax": 2400,
@@ -254,7 +269,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Santander current account. Withdrawals allowed but can't replace funds.",
-      "affiliateUrl": "https://www.santander.co.uk/personal/savings/regular-saver"
+      "affiliateUrl": "https://www.santander.co.uk/personal/savings/regular-saver",
+      "interestPayout": "annually"
     },
     {
       "id": "ybs-regular",
@@ -269,7 +285,8 @@
       "requirements": "Must have been a member for at least 1 year. Max 1 withdrawal/year. Keep min £1.",
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
-      "affiliateUrl": "https://www.ybs.co.uk/savings/regular-saver"
+      "affiliateUrl": "https://www.ybs.co.uk/savings/regular-saver",
+      "interestPayout": "annually"
     }
   ],
   "easyAccess": [
@@ -281,7 +298,8 @@
       "minDeposit": 1,
       "maxBalance": 100000,
       "requirements": "App only",
-      "affiliateUrl": "https://www.getchip.uk/savings-accounts"
+      "affiliateUrl": "https://www.getchip.uk/savings-accounts",
+      "interestPayout": "monthly"
     },
     {
       "id": "atom-bank",
@@ -291,7 +309,8 @@
       "minDeposit": 1,
       "maxBalance": 100000,
       "requirements": "App only",
-      "affiliateUrl": "https://www.atombank.co.uk/savings/instant-saver/"
+      "affiliateUrl": "https://www.atombank.co.uk/savings/instant-saver/",
+      "interestPayout": "monthly"
     },
     {
       "id": "trading212",
@@ -301,7 +320,8 @@
       "minDeposit": 1,
       "maxBalance": 20000,
       "requirements": "ISA allowance",
-      "affiliateUrl": "https://www.trading212.com/cash-isa"
+      "affiliateUrl": "https://www.trading212.com/cash-isa",
+      "interestPayout": "daily"
     },
     {
       "id": "plum",
@@ -311,7 +331,8 @@
       "minDeposit": 1,
       "maxBalance": 85000,
       "requirements": "App only",
-      "affiliateUrl": "https://withplum.com/savings"
+      "affiliateUrl": "https://withplum.com/savings",
+      "interestPayout": "monthly"
     },
     {
       "id": "marcus",
@@ -321,7 +342,8 @@
       "minDeposit": 1,
       "maxBalance": null,
       "requirements": "None",
-      "affiliateUrl": "https://www.marcus.co.uk/uk/en/savings/online-savings-account"
+      "affiliateUrl": "https://www.marcus.co.uk/uk/en/savings/online-savings-account",
+      "interestPayout": "monthly"
     }
   ],
   "indexFunds": [
@@ -330,12 +352,12 @@
       "name": "VWRA",
       "fullName": "Vanguard FTSE All-World UCITS ETF (USD) Accumulating",
       "provider": "Vanguard",
-      "projectedReturn": 10.0,
+      "projectedReturn": 10,
       "expenseRatio": 0.22,
       "description": "Global index fund tracking FTSE All-World Index",
       "affiliateUrl": "https://www.vanguardinvestor.co.uk/investments/vanguard-ftse-all-world-ucits-etf-usd-accumulating"
     }
   ],
   "defaultEasyAccessRate": 4.84,
-  "defaultIndexReturn": 10.0
+  "defaultIndexReturn": 10
 }

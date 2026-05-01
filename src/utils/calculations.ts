@@ -106,6 +106,7 @@ export function calculateOptimisedSplit(
       allowsWithdrawals: acc.allowsWithdrawals,
       allowsSkippedMonths: acc.allowsSkippedMonths,
       bonusNote: acc.bonusNote,
+      interestPayout: acc.interestPayout,
     });
 
     if (allocated > 0) {

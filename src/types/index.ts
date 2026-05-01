@@ -1,5 +1,6 @@
 export type EligibilityType = 'open-to-all' | 'existing-customer' | 'existing-member';
 export type RateType = 'fixed' | 'variable';
+export type InterestPayout = 'monthly' | 'annually' | 'daily' | 'on-maturity';
 
 export interface RegularSaver {
   id: string;
@@ -7,6 +8,7 @@ export interface RegularSaver {
   provider: string;
   rate: number;
   rateType: RateType;
+  interestPayout: InterestPayout;
   monthlyMax: number;
   annualMax: number;
   term: number;
@@ -25,6 +27,7 @@ export interface EasyAccessAccount {
   provider: string;
   rate: number;
   rateType: RateType;
+  interestPayout: InterestPayout;
   minDeposit: number;
   maxBalance: number | null;
   eligibility: EligibilityType;
@@ -70,6 +73,7 @@ export interface AllocationItem {
   allowsWithdrawals?: boolean;
   allowsSkippedMonths?: boolean;
   bonusNote?: string;
+  interestPayout?: InterestPayout;
 }
 
 export interface StrategyResult {
