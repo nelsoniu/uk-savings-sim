@@ -30,7 +30,7 @@ export function SavingsSlider({
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          className="flex-1 cursor-pointer accent-blue-600"
         />
         <div className="min-w-[100px] text-right">
           <span className="text-2xl font-bold text-gray-900 dark:text-white">

@@ -55,7 +55,7 @@ export function CustomMixSliders({ mix, onChange }: CustomMixSlidersProps) {
           onChange={(e) =>
             handleChange('regularSaverPercent', Number(e.target.value))
           }
-          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-600"
+          className="w-full cursor-pointer accent-purple-600"
         />
       </div>
 
@@ -74,7 +74,7 @@ export function CustomMixSliders({ mix, onChange }: CustomMixSlidersProps) {
           onChange={(e) =>
             handleChange('easyAccessPercent', Number(e.target.value))
           }
-          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-green-600"
+          className="w-full cursor-pointer accent-green-600"
         />
       </div>
 
@@ -91,7 +91,7 @@ export function CustomMixSliders({ mix, onChange }: CustomMixSlidersProps) {
           max={100}
           value={mix.indexPercent}
           onChange={(e) => handleChange('indexPercent', Number(e.target.value))}
-          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          className="w-full cursor-pointer accent-blue-600"
         />
       </div>
 
