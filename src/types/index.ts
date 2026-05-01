@@ -1,11 +1,19 @@
+export type EligibilityType = 'open-to-all' | 'existing-customer' | 'existing-member';
+export type RateType = 'fixed' | 'variable';
+
 export interface RegularSaver {
   id: string;
   name: string;
   provider: string;
   rate: number;
+  rateType: RateType;
   monthlyMax: number;
   annualMax: number;
   term: number;
+  eligibility: EligibilityType;
+  linkedProduct?: string;
+  allowsWithdrawals: boolean;
+  allowsSkippedMonths: boolean;
   requirements: string;
   affiliateUrl: string;
 }
@@ -15,8 +23,11 @@ export interface EasyAccessAccount {
   name: string;
   provider: string;
   rate: number;
+  rateType: RateType;
   minDeposit: number;
   maxBalance: number | null;
+  eligibility: EligibilityType;
+  linkedProduct?: string;
   requirements: string;
   affiliateUrl: string;
 }
