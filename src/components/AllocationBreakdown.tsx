@@ -205,10 +205,12 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                 </p>
               )}
               {/* Individual account CTA button */}
-              {item.affiliateUrl && item.monthlyAmount > 0 && (
+              {item.affiliateUrl && (
                 <a
                   href={item.affiliateUrl}
-                  className={`mt-3 inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors ${getButtonColor(item.type)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-3 inline-flex items-center justify-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors ${item.monthlyAmount > 0 ? getButtonColor(item.type) : 'bg-gray-500 hover:bg-gray-600 text-white'}`}
                 >
                   Open {item.provider} Account
                   <svg
