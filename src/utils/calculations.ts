@@ -66,7 +66,7 @@ export function calculateOptimisedSplit(
 ): StrategyResult {
   // Calculate total monthly capacity for regular savers applying overrides where applicable
   const totalRegularCapacity = accounts.regularSavers.reduce(
-    (sum, acc) => sum + (overrides?.[acc.name] ?? acc.monthlyMax),
+    (sum, acc) => sum + (overrides?.[acc.provider] ?? acc.monthlyMax),
     0
   );
 
@@ -83,7 +83,7 @@ export function calculateOptimisedSplit(
   const sortedRegularSavers = [...accounts.regularSavers].sort((a, b) => b.rate - a.rate);
 
   for (const acc of sortedRegularSavers) {
-    const customMax = overrides?.[acc.name] ?? acc.monthlyMax;
+    const customMax = overrides?.[acc.provider] ?? acc.monthlyMax;
     const allocated = Math.min(remainingToAllocate, customMax);
     if (allocated > 0) {
       allocation.push({
