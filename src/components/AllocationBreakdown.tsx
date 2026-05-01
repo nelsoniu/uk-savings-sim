@@ -45,6 +45,17 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
     }
   };
 
+  const getTypeTooltip = (type: AllocationItem['type']) => {
+    switch (type) {
+      case 'regular':
+        return 'Fixed monthly deposit, higher rates, 12-month term. FSCS protected up to £85k.';
+      case 'easyAccess':
+        return 'Withdraw anytime, no fixed term. Lower rate but flexible. FSCS protected up to £85k.';
+      case 'index':
+        return 'Invests in global stocks. Higher potential returns but value can go down.';
+    }
+  };
+
   const getRateColor = (type: AllocationItem['type']) => {
     switch (type) {
       case 'regular':
@@ -78,9 +89,17 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                   <span className="font-medium text-gray-900 dark:text-white">
                     {item.provider}
                   </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/50 dark:bg-black/20 text-gray-600 dark:text-gray-300">
-                    {getTypeLabel(item.type)}
-                  </span>
+                  <div className="group relative inline-flex items-center">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-white/50 dark:bg-black/20 text-gray-600 dark:text-gray-300 cursor-help">
+                      {getTypeLabel(item.type)}
+                    </span>
+                    <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 opacity-0 transition-opacity group-hover:opacity-100 z-20 bg-gray-800 dark:bg-gray-700 shadow-xl text-white text-xs rounded-md py-2 px-3 text-center font-normal leading-relaxed">
+                      {getTypeTooltip(item.type)}
+                      <svg className="absolute left-1/2 top-full -mt-px -translate-x-1/2 text-gray-800 dark:text-gray-700 h-2 w-full" x="0px" y="0px" viewBox="0 0 255 255">
+                        <polygon className="fill-current" points="0,0 127.5,127.5 255,0" />
+                      </svg>
+                    </div>
+                  </div>
                   {isAtMax && (
                     <span className="text-xs px-2 py-0.5 rounded-full bg-green-500 text-white font-medium">
                       MAXED
