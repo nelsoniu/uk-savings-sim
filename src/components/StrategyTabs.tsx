@@ -66,10 +66,10 @@ export function StrategyTabs({
     },
     oneSavings: {
       title: 'One Savings Account',
-      description: `All savings into Marcus at ${accounts.defaultEasyAccessRate}% - simple and FSCS protected`,
+      description: `All savings into Trading 212 Cash ISA at ${accounts.defaultEasyAccessRate}% — simple, tax-free, and FSCS protected`,
       result: oneSavingsResult,
-      affiliateUrl: '#marcus',
-      affiliateText: 'Open Marcus Account',
+      affiliateUrl: '#trading212',
+      affiliateText: 'Open Trading 212 ISA',
     },
     allIndex: {
       title: 'All Index Fund',

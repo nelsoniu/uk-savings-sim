@@ -187,7 +187,7 @@ export function calculateOptimisedSplit(
   };
 }
 
-// Strategy 2: One Savings Account - all into Marcus at 4.75%
+// Strategy 2: One Savings Account — all into top easy-access at defaultEasyAccessRate
 export function calculateOneSavingsAccount(
   monthlyAmount: number,
   accounts: AccountsData

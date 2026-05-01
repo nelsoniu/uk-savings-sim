@@ -253,7 +253,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
               {/* Easy access note about other options */}
               {item.type === 'easyAccess' && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
-                  Other options: Atom Bank (4.75%), Trading 212 (4.72%), Plum (4.68%), Marcus (4.5%), Chase (4.5% boosted, 2.25% standard)
+                  Other options: Chase (4.5%), Plum (4.31%), Hanley Economic BS (4.27%), Charter Savings Bank (4.16%)
                 </p>
               )}
               {/* Individual account CTA button */}

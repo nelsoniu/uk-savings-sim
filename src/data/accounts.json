@@ -291,59 +291,70 @@
   ],
   "easyAccess": [
     {
-      "id": "chip",
-      "name": "Instant Access Saver",
-      "provider": "Chip",
-      "rate": 4.84,
-      "minDeposit": 1,
-      "maxBalance": 100000,
-      "requirements": "App only",
-      "affiliateUrl": "https://www.getchip.uk/savings-accounts",
-      "interestPayout": "monthly"
-    },
-    {
-      "id": "atom-bank",
-      "name": "Instant Saver",
-      "provider": "Atom Bank",
-      "rate": 4.75,
-      "minDeposit": 1,
-      "maxBalance": 100000,
-      "requirements": "App only",
-      "affiliateUrl": "https://www.atombank.co.uk/savings/instant-saver/",
-      "interestPayout": "monthly"
-    },
-    {
       "id": "trading212",
       "name": "Cash ISA",
       "provider": "Trading 212",
-      "rate": 4.72,
+      "rate": 4.51,
+      "rateType": "variable",
+      "interestPayout": "monthly",
       "minDeposit": 1,
       "maxBalance": 20000,
-      "requirements": "ISA allowance",
-      "affiliateUrl": "https://www.trading212.com/cash-isa",
-      "interestPayout": "daily"
+      "eligibility": "open-to-all",
+      "requirements": "3.6% variable + 0.91% 1yr newbie bonus. Cash ISA — £20k annual allowance. Flexible ISA.",
+      "affiliateUrl": "https://www.trading212.com/cash-isa"
+    },
+    {
+      "id": "chase",
+      "name": "Saver Account",
+      "provider": "Chase",
+      "rate": 4.5,
+      "rateType": "variable",
+      "interestPayout": "monthly",
+      "minDeposit": 1,
+      "maxBalance": 3000000,
+      "eligibility": "existing-customer",
+      "linkedProduct": "Chase current account",
+      "requirements": "2.25% variable + 2.25% 1yr newbie bonus. Requires Chase current account (no hard credit check). App only.",
+      "affiliateUrl": "https://www.chase.co.uk/savings"
     },
     {
       "id": "plum",
-      "name": "Easy Access Saver",
+      "name": "Cash ISA",
       "provider": "Plum",
-      "rate": 4.68,
-      "minDeposit": 1,
-      "maxBalance": 85000,
-      "requirements": "App only",
-      "affiliateUrl": "https://withplum.com/savings",
-      "interestPayout": "monthly"
+      "rate": 4.31,
+      "rateType": "variable",
+      "interestPayout": "monthly",
+      "minDeposit": 100,
+      "maxBalance": 20000,
+      "eligibility": "open-to-all",
+      "requirements": "2.54% variable + 1.77% 1yr newbie bonus. Cash ISA. Lower 4.2% on transfers from prior tax years. App only.",
+      "affiliateUrl": "https://withplum.com/cash-isa"
     },
     {
-      "id": "marcus",
-      "name": "Online Savings",
-      "provider": "Marcus",
-      "rate": 4.5,
+      "id": "hanley-economic",
+      "name": "Easy Access Saver",
+      "provider": "Hanley Economic BS",
+      "rate": 4.27,
+      "rateType": "variable",
+      "interestPayout": "annually",
+      "minDeposit": 100,
+      "maxBalance": 300000,
+      "eligibility": "open-to-all",
+      "requirements": "Max 2 withdrawals/year (60-day interest charge from 3rd onward).",
+      "affiliateUrl": "https://www.hanleyeconomic.co.uk/savings"
+    },
+    {
+      "id": "charter-savings",
+      "name": "Easy Access Saver",
+      "provider": "Charter Savings Bank",
+      "rate": 4.16,
+      "rateType": "variable",
+      "interestPayout": "monthly",
       "minDeposit": 1,
-      "maxBalance": null,
-      "requirements": "None",
-      "affiliateUrl": "https://www.marcus.co.uk/uk/en/savings/online-savings-account",
-      "interestPayout": "monthly"
+      "maxBalance": 1000000,
+      "eligibility": "open-to-all",
+      "requirements": "No bonus, no caveats. Unlimited withdrawals.",
+      "affiliateUrl": "https://www.chartersavingsbank.co.uk/savings"
     }
   ],
   "indexFunds": [
@@ -358,6 +369,6 @@
       "affiliateUrl": "https://www.vanguardinvestor.co.uk/investments/vanguard-ftse-all-world-ucits-etf-usd-accumulating"
     }
   ],
-  "defaultEasyAccessRate": 4.84,
+  "defaultEasyAccessRate": 4.51,
   "defaultIndexReturn": 10
 }
