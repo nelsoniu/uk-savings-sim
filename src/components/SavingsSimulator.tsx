@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { AccountsData, CustomMix, AllocationOverrides } from '@/types';
 import { SavingsSlider } from './SavingsSlider';
 import { StrategyTabs } from './StrategyTabs';
@@ -36,14 +36,6 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
     };
   }, [monthlyAmount, customMix, accounts, overrides]);
 
-  // Dynamically clamp the Monthly Savings Amount slider if the user's manual max caps
-  // force the total saved mathematically below the top slider's choice!
-  useEffect(() => {
-    if (results.optimised.actualMonthlySaved !== undefined && results.optimised.actualMonthlySaved < monthlyAmount) {
-      setMonthlyAmount(results.optimised.actualMonthlySaved);
-    }
-  }, [results.optimised.actualMonthlySaved, monthlyAmount]);
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
@@ -64,7 +56,11 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
       <main className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Savings Amount Slider */}
         <section className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <SavingsSlider value={monthlyAmount} onChange={setMonthlyAmount} />
+          <SavingsSlider
+            value={monthlyAmount}
+            onChange={setMonthlyAmount}
+            effectiveMonthlyAmount={results.optimised.actualMonthlySaved}
+          />
         </section>
 
         {/* Strategy Tabs */}
