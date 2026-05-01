@@ -129,7 +129,7 @@ export function AllocationBreakdown({ allocation, monthlyTotal, overrides, onOve
                           min="0"
                           max={maxCapacityLimit}
                           step="10"
-                          value={overrideValue}
+                          value={item.monthlyAmount}
                           onChange={(e) => onOverrideChange(item.provider, Number(e.target.value))}
                           className={`absolute inset-0 w-full h-full cursor-pointer z-10 m-0 transparent-track bg-transparent ${item.type === 'regular'
                               ? 'accent-purple-500'
