@@ -70,6 +70,11 @@ export function StrategyTabs({
       result: optimisedResult,
       affiliateUrl: '#optimised-accounts',
       affiliateText: 'Open These Accounts',
+      badge: {
+        text: '⚖ Balanced',
+        subLabel: 'Guaranteed returns · multiple accounts to set up',
+        color: 'blue' as const,
+      },
     },
     oneSavings: {
       title: 'One Savings Account',
@@ -77,6 +82,11 @@ export function StrategyTabs({
       result: oneSavingsResult,
       affiliateUrl: '#trading212',
       affiliateText: 'Open Trading 212 ISA',
+      badge: {
+        text: '✓ Simplest',
+        subLabel: 'Guaranteed returns · one account, zero effort',
+        color: 'green' as const,
+      },
     },
     allIndex: {
       title: 'All Index Fund',
@@ -84,6 +94,11 @@ export function StrategyTabs({
       result: allIndexResult,
       affiliateUrl: '#vwra',
       affiliateText: 'Start Investing in VWRA',
+      badge: {
+        text: '★ Highest Return',
+        subLabel: 'Market risk involved · not guaranteed',
+        color: 'amber' as const,
+      },
     },
     custom: {
       title: 'My Own Mix',
@@ -91,6 +106,11 @@ export function StrategyTabs({
       result: customResult,
       affiliateUrl: '#custom-accounts',
       affiliateText: 'Get Started with This Mix',
+      badge: {
+        text: '✎ Custom',
+        subLabel: 'You choose your risk level',
+        color: 'purple' as const,
+      },
     },
   };
 
@@ -145,6 +165,7 @@ export function StrategyTabs({
                 affiliateText={s.affiliateText}
                 highlighted={key === bestKey}
                 rank={rankMap.get(key)}
+                badge={s.badge}
               >
                 {key === 'custom' && (
                   <CustomMixSliders mix={customMix} onChange={onCustomMixChange} />
@@ -179,6 +200,7 @@ export function StrategyTabs({
             affiliateUrl={strategies[expandedStrategy].affiliateUrl}
             affiliateText={strategies[expandedStrategy].affiliateText}
             highlighted={expandedStrategy === bestKey}
+            badge={strategies[expandedStrategy].badge}
           >
             {expandedStrategy === 'optimised' && optimisedResult.allocation && (
               <AllocationBreakdown

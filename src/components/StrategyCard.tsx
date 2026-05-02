@@ -3,6 +3,12 @@
 import { StrategyResult } from '@/types';
 import { formatCurrency } from '@/utils/calculations';
 
+interface BadgeConfig {
+  text: string;
+  subLabel: string;
+  color: 'amber' | 'blue' | 'green' | 'purple';
+}
+
 interface StrategyCardProps {
   title: string;
   description: string;
@@ -12,6 +18,7 @@ interface StrategyCardProps {
   children?: React.ReactNode;
   highlighted?: boolean;
   rank?: number;
+  badge?: BadgeConfig;
 }
 
 function InfoTooltip({ text }: { text: string }) {
@@ -30,6 +37,13 @@ function InfoTooltip({ text }: { text: string }) {
   );
 }
 
+const badgeStyles = {
+  amber: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
+  blue: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300',
+  green: 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300',
+  purple: 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300',
+};
+
 export function StrategyCard({
   title,
   description,
@@ -39,6 +53,7 @@ export function StrategyCard({
   children,
   highlighted = false,
   rank,
+  badge,
 }: StrategyCardProps) {
   return (
     <div
@@ -61,6 +76,16 @@ export function StrategyCard({
       )}
 
       <div className="p-5">
+        {badge && (
+          <div className="mb-3">
+            <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${badgeStyles[badge.color]}`}>
+              {badge.text}
+            </span>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-1.5">
+              {badge.subLabel}
+            </p>
+          </div>
+        )}
         <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
           {title}
         </h3>
