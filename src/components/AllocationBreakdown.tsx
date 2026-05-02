@@ -66,10 +66,22 @@ function AccountRow({
   return (
     <div className={`border-b border-gray-100 dark:border-gray-700/50 last:border-0 ${!isFunded ? 'opacity-50' : ''}`}>
       {/* Compact row */}
-      <div
-        className="flex items-center gap-3 py-2.5 px-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
-        onClick={onToggleExpand}
-      >
+      <div className="flex items-center gap-2 py-2.5 px-3">
+        {/* Expand button */}
+        <button
+          onClick={onToggleExpand}
+          className="shrink-0 p-1 -ml-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+        >
+          <svg
+            className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
         {/* Provider name */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
@@ -85,7 +97,7 @@ function AccountRow({
         </div>
 
         {/* Amount */}
-        <div className="w-20 text-right">
+        <div className="w-16 sm:w-20 text-right">
           <span className={`text-sm font-semibold tabular-nums ${isFunded ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'}`}>
             {formatCurrency(item.monthlyAmount)}
           </span>
@@ -94,7 +106,7 @@ function AccountRow({
 
         {/* Progress bar (desktop only) */}
         {nativeMax > 0 && item.type !== 'index' && (
-          <div className="hidden sm:flex items-center gap-2 w-28">
+          <div className="hidden md:flex items-center gap-2 w-24">
             <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all ${isAtMax ? 'bg-amber-500' : c.bar}`}
@@ -108,21 +120,33 @@ function AccountRow({
         )}
 
         {/* Rate */}
-        <div className="w-12 text-right">
+        <div className="w-10 sm:w-12 text-right">
           <span className={`text-sm font-bold ${c.text}`}>
             {item.rate}%
           </span>
         </div>
 
-        {/* Expand chevron */}
-        <svg
-          className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        {/* Affiliate CTA button - always visible */}
+        {item.affiliateUrl ? (
+          <a
+            href={item.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className={`shrink-0 px-2.5 py-1.5 rounded-lg text-[11px] font-semibold transition-all ${
+              isFunded
+                ? `${c.badge} hover:opacity-80`
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+          >
+            <span className="hidden sm:inline">Open</span>
+            <svg className="w-3.5 h-3.5 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        ) : (
+          <div className="w-12 sm:w-14" />
+        )}
       </div>
 
       {/* Expanded details */}
@@ -175,25 +199,9 @@ function AccountRow({
 
           {/* Bonus note */}
           {item.bonusNote && (
-            <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium mb-1">
+            <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium">
               💰 {item.bonusNote}
             </p>
-          )}
-
-          {/* Affiliate link */}
-          {item.affiliateUrl && (
-            <a
-              href={item.affiliateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className={`inline-flex items-center gap-1 text-[11px] font-medium ${c.text} hover:underline`}
-            >
-              Open {item.provider} Account
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
           )}
         </div>
       )}
