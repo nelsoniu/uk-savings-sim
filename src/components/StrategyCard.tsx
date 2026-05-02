@@ -63,9 +63,9 @@ export function StrategyCard({
           : 'border-gray-200 dark:border-gray-700 card-hover'
       }`}
     >
-      {highlighted && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-xs font-semibold rounded-full shadow-md">
-          ★ Best Return
+      {badge && (
+        <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${badgeStyles[badge.color]}`}>
+          {badge.text}
         </div>
       )}
 
@@ -75,16 +75,11 @@ export function StrategyCard({
         </div>
       )}
 
-      <div className="p-5">
+      <div className="p-5 pt-4">
         {badge && (
-          <div className="mb-3">
-            <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${badgeStyles[badge.color]}`}>
-              {badge.text}
-            </span>
-            <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-1.5">
-              {badge.subLabel}
-            </p>
-          </div>
+          <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+            {badge.subLabel}
+          </p>
         )}
         <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
           {title}
