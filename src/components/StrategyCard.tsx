@@ -13,12 +13,11 @@ interface StrategyCardProps {
   title: string;
   description: string;
   result: StrategyResult;
-  affiliateUrl: string;
+  affiliateUrl?: string;
   affiliateText: string;
   children?: React.ReactNode;
-  highlighted?: boolean;
-  rank?: number;
   badge?: BadgeConfig;
+  onCtaClick?: () => void;
 }
 
 function InfoTooltip({ text }: { text: string }) {
@@ -51,27 +50,14 @@ export function StrategyCard({
   affiliateUrl,
   affiliateText,
   children,
-  highlighted = false,
-  rank,
   badge,
+  onCtaClick,
 }: StrategyCardProps) {
   return (
-    <div
-      className={`relative bg-white dark:bg-gray-800/80 rounded-2xl border transition-all ${
-        highlighted
-          ? 'border-indigo-400 dark:border-indigo-500 shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-500/20'
-          : 'border-gray-200 dark:border-gray-700 card-hover'
-      }`}
-    >
+    <div className="relative bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-200 dark:border-gray-700 card-hover transition-all">
       {badge && (
         <div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${badgeStyles[badge.color]}`}>
           {badge.text}
-        </div>
-      )}
-
-      {rank !== undefined && (
-        <div className="absolute -top-2.5 -left-2.5 w-7 h-7 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-600 flex items-center justify-center text-xs font-bold text-gray-500 dark:text-gray-400 shadow-sm">
-          {rank}
         </div>
       )}
 
@@ -137,21 +123,29 @@ export function StrategyCard({
           </div>
         </div>
 
-        <a
-          href={affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-            highlighted
-              ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/25'
-              : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200'
-          }`}
-        >
-          {affiliateText}
-          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
+        {onCtaClick ? (
+          <button
+            onClick={onCtaClick}
+            className="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/25"
+          >
+            {affiliateText}
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        ) : (
+          <a
+            href={affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-sm font-semibold transition-all bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200"
+          >
+            {affiliateText}
+            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        )}
       </div>
     </div>
   );

@@ -50,19 +50,6 @@ export function StrategyTabs({
     0
   );
 
-  const allResults = [
-    { key: 'optimised' as const, result: optimisedResult },
-    { key: 'oneSavings' as const, result: oneSavingsResult },
-    { key: 'allIndex' as const, result: allIndexResult },
-    { key: 'custom' as const, result: customResult },
-  ];
-  const bestKey = allResults.reduce((best, curr) =>
-    curr.result.tenYearProjectedPot > allResults.find(r => r.key === best)!.result.tenYearProjectedPot
-      ? curr.key
-      : best,
-    'optimised' as StrategyType
-  );
-
   const strategies = {
     optimised: {
       title: 'Optimised Split',
@@ -114,9 +101,6 @@ export function StrategyTabs({
     },
   };
 
-  const ranked = [...allResults].sort((a, b) => b.result.tenYearProjectedPot - a.result.tenYearProjectedPot);
-  const rankMap = new Map(ranked.map((r, i) => [r.key, i + 1]));
-
   const tabKeys: StrategyType[] = ['optimised', 'oneSavings', 'allIndex', 'custom'];
 
   return (
@@ -161,10 +145,13 @@ export function StrategyTabs({
                 title={s.title}
                 description={s.description}
                 result={s.result}
-                affiliateUrl={s.affiliateUrl}
-                affiliateText={s.affiliateText}
-                highlighted={key === bestKey}
+                affiliateUrl={key !== 'optimised' ? s.affiliateUrl : undefined}
+                affiliateText={key === 'optimised' ? 'View Allocation Split' : s.affiliateText}
                 badge={s.badge}
+                onCtaClick={key === 'optimised' ? () => {
+                  setActiveTab('details');
+                  setExpandedStrategy('optimised');
+                } : undefined}
               >
                 {key === 'custom' && (
                   <CustomMixSliders mix={customMix} onChange={onCustomMixChange} />
@@ -198,7 +185,6 @@ export function StrategyTabs({
             result={strategies[expandedStrategy].result}
             affiliateUrl={strategies[expandedStrategy].affiliateUrl}
             affiliateText={strategies[expandedStrategy].affiliateText}
-            highlighted={expandedStrategy === bestKey}
             badge={strategies[expandedStrategy].badge}
           >
             {expandedStrategy === 'optimised' && optimisedResult.allocation && (
