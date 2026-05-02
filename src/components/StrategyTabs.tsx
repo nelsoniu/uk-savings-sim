@@ -6,6 +6,7 @@ import { StrategyCard } from './StrategyCard';
 import { CustomMixSliders } from './CustomMixSliders';
 import { AllocationBreakdown } from './AllocationBreakdown';
 import { AllocationInsights } from './AllocationInsights';
+import { ComparisonInsights } from './ComparisonInsights';
 import {
   calculateOptimisedSplit,
   calculateOneSavingsAccount,
@@ -136,8 +137,15 @@ export function StrategyTabs({
       </div>
 
       {activeTab === 'comparison' ? (
-        /* 2x2 comparison grid */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <>
+          <ComparisonInsights
+            optimised={optimisedResult}
+            oneSavings={oneSavingsResult}
+            allIndex={allIndexResult}
+            monthlyAmount={monthlyAmount}
+          />
+          {/* 2x2 comparison grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {tabKeys.map((key) => {
             const s = strategies[key];
             return (
@@ -161,6 +169,7 @@ export function StrategyTabs({
             );
           })}
         </div>
+        </>
       ) : (
         /* Detail view with tabs */
         <div>
