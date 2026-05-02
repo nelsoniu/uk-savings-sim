@@ -164,7 +164,6 @@ export function StrategyTabs({
                 affiliateUrl={s.affiliateUrl}
                 affiliateText={s.affiliateText}
                 highlighted={key === bestKey}
-                rank={rankMap.get(key)}
                 badge={s.badge}
               >
                 {key === 'custom' && (
