@@ -87,36 +87,45 @@ export function ProjectionChart({
         label: 'Total Pot',
         data: decomposed.total,
         borderColor: 'rgb(99, 102, 241)',
-        backgroundColor: 'rgba(99, 102, 241, 0.1)',
-        fill: false,
-        tension: 0.3,
+        backgroundColor: (context: { chart: { ctx: CanvasRenderingContext2D } }) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
+          gradient.addColorStop(1, 'rgba(99, 102, 241, 0.02)');
+          return gradient;
+        },
+        fill: true,
+        tension: 0.4,
         borderWidth: 3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        pointBackgroundColor: 'rgb(99, 102, 241)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
       },
       {
-        label: 'Regular Saver Growth',
+        label: 'Regular Savers',
         data: decomposed.regular,
         borderColor: 'rgb(168, 85, 247)',
         backgroundColor: 'rgba(168, 85, 247, 0.05)',
         fill: false,
-        tension: 0.3,
+        tension: 0.4,
         borderWidth: 2,
-        borderDash: [6, 3],
-        pointRadius: 2,
-        pointHoverRadius: 4,
+        borderDash: [5, 3],
+        pointRadius: 3,
+        pointHoverRadius: 5,
       },
       {
-        label: 'Easy Access / Index Growth',
+        label: 'Easy Access / Index',
         data: decomposed.easyAccess,
         borderColor: 'rgb(34, 197, 94)',
         backgroundColor: 'rgba(34, 197, 94, 0.05)',
         fill: false,
-        tension: 0.3,
+        tension: 0.4,
         borderWidth: 2,
-        borderDash: [6, 3],
-        pointRadius: 2,
-        pointHoverRadius: 4,
+        borderDash: [5, 3],
+        pointRadius: 3,
+        pointHoverRadius: 5,
       },
     ],
   };
@@ -131,21 +140,27 @@ export function ProjectionChart({
     plugins: {
       legend: {
         position: 'top' as const,
+        align: 'end' as const,
         labels: {
-          color: isDark ? '#e5e7eb' : '#374151',
+          color: isDark ? '#cbd5e1' : '#475569',
           usePointStyle: true,
           pointStyle: 'circle',
-          padding: 20,
-          font: { size: 13 },
+          padding: 24,
+          font: { size: 12, weight: 500 as const },
+          boxWidth: 8,
+          boxHeight: 8,
         },
       },
       tooltip: {
-        backgroundColor: isDark ? '#1f2937' : '#ffffff',
-        titleColor: isDark ? '#f3f4f6' : '#111827',
-        bodyColor: isDark ? '#d1d5db' : '#4b5563',
-        borderColor: isDark ? '#374151' : '#e5e7eb',
+        backgroundColor: isDark ? '#1e293b' : '#ffffff',
+        titleColor: isDark ? '#f1f5f9' : '#0f172a',
+        bodyColor: isDark ? '#cbd5e1' : '#475569',
+        borderColor: isDark ? '#334155' : '#e2e8f0',
         borderWidth: 1,
+        cornerRadius: 8,
         padding: 12,
+        titleFont: { weight: 600 as const, size: 13 },
+        bodyFont: { size: 12 },
         callbacks: {
           label: function (context: { dataset: { label?: string }; parsed: { y: number | null } }) {
             const label = context.dataset.label || '';
@@ -158,25 +173,27 @@ export function ProjectionChart({
     scales: {
       x: {
         grid: {
-          color: isDark ? '#374151' : '#e5e7eb',
+          color: isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.8)',
+          drawBorder: false,
         },
         ticks: {
-          color: isDark ? '#9ca3af' : '#6b7280',
+          color: isDark ? '#94a3b8' : '#64748b',
+          font: { size: 11 },
         },
       },
       y: {
         grid: {
-          color: isDark ? '#374151' : '#e5e7eb',
+          color: isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.8)',
+          drawBorder: false,
         },
         ticks: {
-          color: isDark ? '#9ca3af' : '#6b7280',
+          color: isDark ? '#94a3b8' : '#64748b',
+          font: { size: 11 },
+          padding: 8,
           callback: function (tickValue: string | number) {
             const value = typeof tickValue === 'string' ? parseFloat(tickValue) : tickValue;
-            if (value >= 1000000) {
-              return `£${(value / 1000000).toFixed(1)}M`;
-            } else if (value >= 1000) {
-              return `£${(value / 1000).toFixed(0)}k`;
-            }
+            if (value >= 1000000) return `£${(value / 1000000).toFixed(1)}M`;
+            if (value >= 1000) return `£${(value / 1000).toFixed(0)}k`;
             return `£${value}`;
           },
         },
@@ -190,37 +207,37 @@ export function ProjectionChart({
   const totalGrowth = finalTotal - totalDeposits;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex flex-wrap items-baseline justify-between mb-4 gap-2">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          10-Year Optimised Projection
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+          10-Year Projection
         </h3>
-        <div className="flex gap-4 text-sm">
+        <div className="flex gap-5 text-sm">
           <div className="text-right">
-            <p className="text-gray-500 dark:text-gray-400 text-xs">Final Pot</p>
-            <p className="font-bold text-indigo-600 dark:text-indigo-400">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold">Final Pot</p>
+            <p className="font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
               {formatCurrency(finalTotal)}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-gray-500 dark:text-gray-400 text-xs">Total Deposits</p>
-            <p className="font-bold text-gray-700 dark:text-gray-300">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold">Deposits</p>
+            <p className="font-bold text-gray-700 dark:text-gray-300 tabular-nums">
               {formatCurrency(totalDeposits)}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-gray-500 dark:text-gray-400 text-xs">Growth</p>
-            <p className="font-bold text-green-600 dark:text-green-400">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold">Growth</p>
+            <p className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
               +{formatCurrency(totalGrowth)}
             </p>
           </div>
         </div>
       </div>
-      <div className="h-[400px]">
+      <div className="h-[380px]">
         <Line data={data} options={options} />
       </div>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">
-        Solid line = total pot. Dashed lines = breakdown by account type.
+      <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-4 text-center">
+        Solid area = total pot. Dashed lines = breakdown by account type.
       </p>
     </div>
   );

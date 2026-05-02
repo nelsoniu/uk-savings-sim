@@ -1,102 +1,127 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --ring: rgba(99, 102, 241, 0.3);
 }
 
 .dark {
-  --background: #111827;
-  --foreground: #f9fafb;
+  --background: #0b1120;
+  --foreground: #e2e8f0;
+  --card: #111827;
+  --card-border: #1e293b;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom range slider styling */
+/* ---- Range Sliders ---- */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   cursor: pointer;
+  width: 100%;
 }
-
 input[type="range"]::-webkit-slider-runnable-track {
-  background: #e5e7eb;
-  border-radius: 0.5rem;
-  height: 0.5rem;
+  background: #e2e8f0;
+  border-radius: 999px;
+  height: 6px;
 }
-
 .dark input[type="range"]::-webkit-slider-runnable-track {
-  background: #374151;
+  background: #334155;
 }
-
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -4px;
-  background-color: #2563eb;
-  height: 1rem;
-  width: 1rem;
+  margin-top: -7px;
+  background-color: #6366f1;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.15s;
 }
-
 input[type="range"]::-moz-range-track {
-  background: #e5e7eb;
-  border-radius: 0.5rem;
-  height: 0.5rem;
+  background: #e2e8f0;
+  border-radius: 999px;
+  height: 6px;
 }
-
 .dark input[type="range"]::-moz-range-track {
-  background: #374151;
+  background: #334155;
 }
-
 input[type="range"]::-moz-range-thumb {
-  background-color: #2563eb;
-  height: 1rem;
-  width: 1rem;
+  background-color: #6366f1;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
-
 input[type="range"]:focus {
   outline: none;
 }
-
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.35);
 }
-
 input[type="range"]:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.35);
 }
 
-/* Purple accent for custom mix regular saver slider */
-input[type="range"].accent-purple-600::-webkit-slider-thumb {
-  background-color: #9333ea;
+/* Accent thumb colours */
+input[type="range"].accent-purple-600::-webkit-slider-thumb { background-color: #a855f7; }
+input[type="range"].accent-purple-600::-moz-range-thumb { background-color: #a855f7; }
+input[type="range"].accent-green-600::-webkit-slider-thumb { background-color: #22c55e; }
+input[type="range"].accent-green-600::-moz-range-thumb { background-color: #22c55e; }
+
+/* Transparent track */
+input[type="range"].transparent-track::-webkit-slider-runnable-track { background: transparent; }
+input[type="range"].transparent-track::-moz-range-track { background: transparent; }
+
+/* ---- Scrollbar (desktop) ---- */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  .dark ::-webkit-scrollbar-thumb { background: #475569; }
 }
 
-input[type="range"].accent-purple-600::-moz-range-thumb {
-  background-color: #9333ea;
+/* ---- Card hover lift ---- */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.06);
 }
 
-/* Green accent for easy access slider */
-input[type="range"].accent-green-600::-webkit-slider-thumb {
-  background-color: #16a34a;
+/* ---- Gradient accents ---- */
+.gradient-border-top {
+  position: relative;
 }
-
-input[type="range"].accent-green-600::-moz-range-thumb {
-  background-color: #16a34a;
-}
-
-/* Transparent track for layered slider */
-input[type="range"].transparent-track::-webkit-slider-runnable-track {
-  background: transparent;
+.gradient-border-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
 }
 .dark input[type="range"].transparent-track::-webkit-slider-runnable-track {
   background: transparent;

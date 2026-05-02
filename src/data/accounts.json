@@ -15,6 +15,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Zopa Biscuit current account",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Zopa Biscuit current account (app-based, soft eligibility check, FSCS protected)",
       "affiliateUrl": "https://www.zopa.com/regular-saver",
       "interestPayout": "annually"
     },
@@ -32,6 +34,8 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires 1st Account. No withdrawals, min £25/month. Early closure = 1.75% rate.",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "First Direct 1st Account current account (hard credit check, £250 switching bonus often available)",
       "affiliateUrl": "https://www.firstdirect.com/savings-and-investments/savings/regular-saver-account/",
       "interestPayout": "annually"
     },
@@ -49,6 +53,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Co-operative Bank current account",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Co-operative Bank current account (online banking, FSCS protected)",
       "affiliateUrl": "https://www.co-operativebank.co.uk/savings/regular-saver/",
       "interestPayout": "annually"
     },
@@ -66,6 +72,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires FlexDirect or FlexPlus current account. Max 3 withdrawals/year.",
+      "estimatedOpenTime": "5-10 minutes",
+      "prerequisites": "Nationwide FlexDirect or FlexPlus current account (existing customer, open online in minutes)",
       "affiliateUrl": "https://www.nationwide.co.uk/savings/flex-regular-saver",
       "interestPayout": "annually"
     },
@@ -83,6 +91,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Club Lloyds current account",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Club Lloyds current account (£3/month fee waived if £2,000+ paid in monthly, or open alongside)",
       "affiliateUrl": "https://www.lloydsbank.com/savings/club-lloyds-monthly-saver.html",
       "interestPayout": "annually"
     },
@@ -99,6 +109,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Open to all. App or branch only. Not available in Northern Ireland.",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "None — open to all UK residents (excluding NI). App or branch only, ID verification required.",
       "affiliateUrl": "https://www.monbs.com/savings/regular-saver/",
       "interestPayout": "annually"
     },
@@ -113,6 +125,8 @@
       "term": 12,
       "eligibility": "existing-member",
       "requirements": "Must have been a member since before 10 Nov 2025. Tracks 2% above BoE base rate.",
+      "estimatedOpenTime": "5-10 minutes",
+      "prerequisites": "Skipton BS membership opened before 10 November 2025 (hard cutoff — newer members ineligible)",
       "allowsWithdrawals": false,
       "allowsSkippedMonths": true,
       "affiliateUrl": "https://www.skipton.co.uk/savings/regular-savings",
@@ -132,6 +146,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Bank of Scotland current account",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Bank of Scotland current account (part of Lloyds Banking Group, FSCS protected)",
       "affiliateUrl": "https://www.bankofscotland.co.uk/savings/regular-saver.html",
       "interestPayout": "annually"
     },
@@ -149,6 +165,8 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires Halifax current account. No withdrawals, early closure permitted.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Halifax current account (open to new and existing customers — opens an Everyday Saver alongside if new)",
       "affiliateUrl": "https://www.halifax.co.uk/savings/accounts/regular-saver/",
       "interestPayout": "annually"
     },
@@ -165,6 +183,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Open to all. 24-month term. Online or branch.",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "None — open to all UK residents. Online or branch application with ID verification.",
       "affiliateUrl": "https://www.themanchester.co.uk/savings/regular-saver/",
       "interestPayout": "annually"
     },
@@ -182,6 +202,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires NatWest current account. +1.75% if you switch to Reward/Select account.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "NatWest current account (app-based, FSCS protected, can switch from existing account)",
       "affiliateUrl": "https://www.natwest.com/savings/digital-regular-saver.html",
       "bonusNote": "Switch to NatWest Reward/Select account to get +1.75% boost (up to 7%) + £150 cash",
       "interestPayout": "annually"
@@ -200,6 +222,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires RBS current account. +1.75% if you switch to Reward/Select account.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "RBS current account (app-based, FSCS protected, can switch from existing account)",
       "affiliateUrl": "https://www.rbs.co.uk/savings/digital-regular-saver.html",
       "bonusNote": "Switch to RBS Reward/Select account to get +1.75% boost (up to 7%) + £150 cash",
       "interestPayout": "annually"
@@ -218,6 +242,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Lloyds current account",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Lloyds Bank current account (standard account, no monthly fee)",
       "affiliateUrl": "https://www.lloydsbank.com/savings/regular-saver.html",
       "interestPayout": "annually"
     },
@@ -235,6 +261,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires TSB current account. Withdrawals allowed but can't replace funds.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "TSB current account (online banking, FSCS protected)",
       "affiliateUrl": "https://www.tsb.co.uk/savings/regular-saver/",
       "interestPayout": "annually"
     },
@@ -252,6 +280,8 @@
       "allowsWithdrawals": false,
       "allowsSkippedMonths": false,
       "requirements": "Requires HSBC current account. No withdrawals, min £25/month. Early closure = 1.75% rate.",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "HSBC current account (may require hard credit check, £175 switching bonus often available)",
       "affiliateUrl": "https://www.hsbc.co.uk/savings/products/regular-saver/",
       "interestPayout": "annually"
     },
@@ -269,6 +299,8 @@
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "requirements": "Requires Santander current account. Withdrawals allowed but can't replace funds.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "Santander current account (online banking, FSCS protected)",
       "affiliateUrl": "https://www.santander.co.uk/personal/savings/regular-saver",
       "interestPayout": "annually"
     },
@@ -283,6 +315,8 @@
       "term": 12,
       "eligibility": "existing-member",
       "requirements": "Must have been a member for at least 1 year. Max 1 withdrawal/year. Keep min £1.",
+      "estimatedOpenTime": "20-30 minutes",
+      "prerequisites": "Yorkshire BS membership for 1+ year (branch or post only — no online application, must visit in person)",
       "allowsWithdrawals": true,
       "allowsSkippedMonths": true,
       "affiliateUrl": "https://www.ybs.co.uk/savings/regular-saver",
@@ -301,6 +335,8 @@
       "maxBalance": 20000,
       "eligibility": "open-to-all",
       "requirements": "3.6% variable + 0.91% 1yr newbie bonus. Cash ISA — £20k annual allowance. Flexible ISA.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "None — open to all UK residents. App-based, ID verification required. FSCS protected.",
       "affiliateUrl": "https://www.trading212.com/cash-isa"
     },
     {
@@ -315,6 +351,8 @@
       "eligibility": "existing-customer",
       "linkedProduct": "Chase current account",
       "requirements": "2.25% variable + 2.25% 1yr newbie bonus. Requires Chase current account (no hard credit check). App only.",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "Chase current account (app-based, no hard credit check, soft eligibility only, FSCS protected)",
       "affiliateUrl": "https://www.chase.co.uk/savings"
     },
     {
@@ -328,6 +366,8 @@
       "maxBalance": 20000,
       "eligibility": "open-to-all",
       "requirements": "2.54% variable + 1.77% 1yr newbie bonus. Cash ISA. Lower 4.2% on transfers from prior tax years. App only.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "None — open to all UK residents. App-only, ID verification required. FSCS protected.",
       "affiliateUrl": "https://withplum.com/cash-isa"
     },
     {
@@ -341,6 +381,8 @@
       "maxBalance": 300000,
       "eligibility": "open-to-all",
       "requirements": "Max 2 withdrawals/year (60-day interest charge from 3rd onward).",
+      "estimatedOpenTime": "15-20 minutes",
+      "prerequisites": "None — open to all UK residents. Online application with ID verification. FSCS protected.",
       "affiliateUrl": "https://www.hanleyeconomic.co.uk/savings"
     },
     {
@@ -354,6 +396,8 @@
       "maxBalance": 1000000,
       "eligibility": "open-to-all",
       "requirements": "No bonus, no caveats. Unlimited withdrawals.",
+      "estimatedOpenTime": "10-15 minutes",
+      "prerequisites": "None — open to all UK residents. Online application with ID verification. FSCS protected.",
       "affiliateUrl": "https://www.chartersavingsbank.co.uk/savings"
     }
   ],
@@ -366,6 +410,8 @@
       "projectedReturn": 10,
       "expenseRatio": 0.22,
       "description": "Global index fund tracking FTSE All-World Index",
+      "estimatedOpenTime": "15-30 minutes",
+      "prerequisites": "Brokerage account (e.g. Trading 212 Invest, Interactive Brokers, Hargreaves Lansdown). No ISA wrapper required but advisable for tax efficiency.",
       "affiliateUrl": "https://www.vanguardinvestor.co.uk/investments/vanguard-ftse-all-world-ucits-etf-usd-accumulating"
     }
   ],
