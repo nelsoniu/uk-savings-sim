@@ -5,6 +5,7 @@ import { StrategyType, AccountsData, CustomMix, StrategyResult, AllocationOverri
 import { StrategyCard } from './StrategyCard';
 import { CustomMixSliders } from './CustomMixSliders';
 import { AllocationBreakdown } from './AllocationBreakdown';
+import { AllocationInsights } from './AllocationInsights';
 import {
   calculateOptimisedSplit,
   calculateOneSavingsAccount,
@@ -188,12 +189,19 @@ export function StrategyTabs({
             badge={strategies[expandedStrategy].badge}
           >
             {expandedStrategy === 'optimised' && optimisedResult.allocation && (
-              <AllocationBreakdown
-                allocation={optimisedResult.allocation}
-                monthlyTotal={monthlyAmount}
-                overrides={overrides}
-                onOverrideChange={onOverrideChange}
-              />
+              <>
+                <AllocationInsights
+                  allocation={optimisedResult.allocation}
+                  result={optimisedResult}
+                  monthlyAmount={monthlyAmount}
+                />
+                <AllocationBreakdown
+                  allocation={optimisedResult.allocation}
+                  monthlyTotal={monthlyAmount}
+                  overrides={overrides}
+                  onOverrideChange={onOverrideChange}
+                />
+              </>
             )}
             {expandedStrategy === 'custom' && (
               <CustomMixSliders mix={customMix} onChange={onCustomMixChange} />
