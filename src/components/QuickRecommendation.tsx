@@ -74,15 +74,15 @@ export function QuickRecommendation({
         )}
       </div>
 
-      {/* Key numbers */}
+      {/* Key numbers - lead with 1-year */}
       <div className="grid grid-cols-2 gap-3 mb-5">
         <div className="bg-white/10 rounded-xl p-3">
-          <p className="text-xs text-white/70 mb-1">In 10 years</p>
+          <p className="text-xs text-white/70 mb-1">After 1 year</p>
           <p className="text-2xl font-extrabold tabular-nums">
-            {formatCurrency(recommended.tenYearProjectedPot)}
+            {formatCurrency(recommended.oneYearProjectedPot)}
           </p>
           <p className="text-xs text-green-300 font-medium">
-            +{recommended.tenYearGrowthPercent.toFixed(0)}% growth
+            +{formatCurrency(recommended.estimatedAnnualInterest)} interest
           </p>
         </div>
         <div className="bg-white/10 rounded-xl p-3">

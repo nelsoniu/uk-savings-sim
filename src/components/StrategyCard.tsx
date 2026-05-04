@@ -85,26 +85,26 @@ export function StrategyCard({
 
         {children && <div className="mb-5">{children}</div>}
 
-        {/* Compact mode: 2 key metrics only */}
+        {/* Compact mode: 2 key metrics - 1yr focus for young professionals */}
         {compact ? (
           <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-3">
+              <p className="text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold mb-0.5">
+                1 yr pot
+              </p>
+              <p className="text-xl font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+                {formatCurrency(result.oneYearProjectedPot)}
+              </p>
+              <p className="text-[10px] text-green-600 dark:text-green-400 mt-0.5 font-medium">
+                +{result.oneYearGrowthPercent.toFixed(1)}%
+              </p>
+            </div>
             <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3">
               <p className="text-[10px] uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold mb-0.5">
                 Interest / yr
               </p>
               <p className="text-xl font-bold text-green-600 dark:text-green-400 tabular-nums">
                 +{formatCurrency(result.estimatedAnnualInterest)}
-              </p>
-            </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
-              <p className="text-[10px] uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold mb-0.5">
-                10 yr pot
-              </p>
-              <p className="text-xl font-bold text-blue-600 dark:text-blue-400 tabular-nums">
-                {formatCurrency(result.tenYearProjectedPot)}
-              </p>
-              <p className="text-[10px] text-green-600 dark:text-green-400 mt-0.5 font-medium">
-                +{result.tenYearGrowthPercent.toFixed(0)}%
               </p>
             </div>
           </div>
