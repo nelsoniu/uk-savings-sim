@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { AccountsData, CustomMix, AllocationOverrides } from '@/types';
 import { SavingsSlider } from './SavingsSlider';
 import { StrategyTabs } from './StrategyTabs';
 import { ProjectionChart } from './ProjectionChart';
+import { ProjectionSummary } from './ProjectionSummary';
+import { QuickRecommendation } from './QuickRecommendation';
 import { ThemeToggle } from './ThemeToggle';
-import { calculateOptimisedSplit } from '@/utils/calculations';
+import { calculateOptimisedSplit, calculateOneSavingsAccount } from '@/utils/calculations';
 import { formatCurrency } from '@/utils/calculations';
 
 interface SavingsSimulatorProps {
@@ -21,10 +23,20 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
     indexPercent: 40,
   });
   const [overrides, setOverrides] = useState<AllocationOverrides>({});
+  const [showRates, setShowRates] = useState(false);
+  const strategySectionRef = useRef<HTMLElement>(null);
 
   const optimisedResult = useMemo(() => {
     return calculateOptimisedSplit(monthlyAmount, accounts, overrides);
   }, [monthlyAmount, accounts, overrides]);
+
+  const oneSavingsResult = useMemo(() => {
+    return calculateOneSavingsAccount(monthlyAmount, accounts);
+  }, [monthlyAmount, accounts]);
+
+  const scrollToStrategies = () => {
+    strategySectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors">
@@ -49,9 +61,18 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
       </header>
 
       {/* ---- Main Content ---- */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-10">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-10">
+        {/* Quick Answer Hero - Mobile Only */}
+        <QuickRecommendation
+          monthlyAmount={monthlyAmount}
+          optimisedResult={optimisedResult}
+          oneSavingsResult={oneSavingsResult}
+          defaultEasyAccessRate={accounts.defaultEasyAccessRate}
+          onShowOptions={scrollToStrategies}
+        />
+
         {/* Hero Slider Section */}
-        <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8 shadow-sm">
+        <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 sm:p-8 shadow-sm">
           <SavingsSlider
             value={monthlyAmount}
             onChange={setMonthlyAmount}
@@ -60,7 +81,7 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
         </section>
 
         {/* Strategy Comparison */}
-        <section>
+        <section ref={strategySectionRef}>
           <StrategyTabs
             monthlyAmount={monthlyAmount}
             accounts={accounts}
@@ -74,20 +95,42 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
           />
         </section>
 
-        {/* Chart */}
+        {/* Projection: Summary on mobile, Chart on desktop */}
         <section>
-          <ProjectionChart
-            optimised={optimisedResult}
+          {/* Mobile: Summary numbers */}
+          <ProjectionSummary
+            result={optimisedResult}
             monthlyAmount={monthlyAmount}
           />
+          {/* Desktop: Full chart */}
+          <div className="hidden sm:block">
+            <ProjectionChart
+              optimised={optimisedResult}
+              monthlyAmount={monthlyAmount}
+            />
+          </div>
         </section>
 
-        {/* Account Rates */}
+        {/* Account Rates - Collapsible on mobile */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-5">
+          <button
+            onClick={() => setShowRates(!showRates)}
+            className="sm:hidden w-full flex items-center justify-between text-lg font-bold text-gray-900 dark:text-white mb-4 py-2"
+          >
+            <span>Current Account Rates</span>
+            <svg
+              className={`w-5 h-5 text-gray-500 transition-transform ${showRates ? 'rotate-180' : ''}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <h2 className="hidden sm:block text-lg font-bold text-gray-900 dark:text-white mb-5">
             Current Account Rates
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${showRates ? 'block' : 'hidden sm:grid'}`}>
             {/* Regular Savers */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
               <div className="flex items-center gap-2 mb-4">

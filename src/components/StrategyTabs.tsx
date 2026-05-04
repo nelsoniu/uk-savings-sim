@@ -54,47 +54,47 @@ export function StrategyTabs({
 
   const strategies = {
     optimised: {
-      title: 'Optimised Split',
-      description: `Fills high-rate regular savers (up to £${totalRegularCapacity.toLocaleString()}/mo) first, then overflows to easy access at ${accounts.defaultEasyAccessRate}%`,
+      title: 'Smart Split',
+      description: 'Spreads your money across top-rate accounts for the best returns',
       result: optimisedResult,
       affiliateUrl: '#optimised-accounts',
       affiliateText: 'Open These Accounts',
       badge: {
-        text: '⚖ Balanced',
-        subLabel: 'Guaranteed returns · multiple accounts to set up',
+        text: '💡 Best Value',
+        subLabel: 'Guaranteed returns · a few accounts to set up',
         color: 'blue' as const,
       },
     },
     oneSavings: {
-      title: 'One Savings Account',
-      description: `All into Trading 212 Cash ISA at ${accounts.defaultEasyAccessRate}% — simple, tax-free, FSCS protected`,
+      title: 'Keep It Simple',
+      description: `One account, zero hassle — ${accounts.defaultEasyAccessRate}% tax-free`,
       result: oneSavingsResult,
       affiliateUrl: '#trading212',
       affiliateText: 'Open Trading 212 ISA',
       badge: {
-        text: '✓ Simplest',
-        subLabel: 'Guaranteed returns · one account, zero effort',
+        text: '✨ Easiest',
+        subLabel: 'Guaranteed returns · one account, done',
         color: 'green' as const,
       },
     },
     allIndex: {
-      title: 'All Index Fund',
-      description: `All into VWRA global index ETF at ${accounts.defaultIndexReturn}% projected annual return`,
+      title: 'Go For Growth',
+      description: `Invest in global stocks — ${accounts.defaultIndexReturn}% expected yearly growth`,
       result: allIndexResult,
       affiliateUrl: '#vwra',
-      affiliateText: 'Start Investing in VWRA',
+      affiliateText: 'Start Investing',
       badge: {
-        text: '★ Highest Return',
-        subLabel: 'Market risk involved · not guaranteed',
+        text: '📈 Most Growth',
+        subLabel: 'Market risk · not guaranteed',
         color: 'amber' as const,
       },
     },
     custom: {
-      title: 'My Own Mix',
-      description: 'Customise your allocation between regular savers, easy access, and index funds',
+      title: 'Build Your Own',
+      description: 'Mix savings accounts and investments your way',
       result: customResult,
       affiliateUrl: '#custom-accounts',
-      affiliateText: 'Get Started with This Mix',
+      affiliateText: 'Get Started',
       badge: {
         text: '✎ Custom',
         subLabel: 'You choose your risk level',
@@ -104,6 +104,8 @@ export function StrategyTabs({
   };
 
   const tabKeys: StrategyType[] = ['optimised', 'oneSavings', 'allIndex', 'custom'];
+  // Show only 3 main strategies on mobile (hide Custom)
+  const mobileTabKeys: StrategyType[] = ['optimised', 'oneSavings', 'allIndex'];
 
   return (
     <div>
@@ -115,17 +117,17 @@ export function StrategyTabs({
         <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-0.5">
           <button
             onClick={() => setActiveTab('comparison')}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`px-4 py-2.5 sm:px-3 sm:py-1.5 rounded-md text-sm sm:text-xs font-medium transition-all min-h-[44px] sm:min-h-0 ${
               activeTab === 'comparison'
                 ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
-            Compare All
+            Compare
           </button>
           <button
             onClick={() => setActiveTab('details')}
-            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`px-4 py-2.5 sm:px-3 sm:py-1.5 rounded-md text-sm sm:text-xs font-medium transition-all min-h-[44px] sm:min-h-0 ${
               activeTab === 'details'
                 ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
@@ -144,41 +146,65 @@ export function StrategyTabs({
             allIndex={allIndexResult}
             monthlyAmount={monthlyAmount}
           />
-          {/* 2x2 comparison grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {tabKeys.map((key) => {
-            const s = strategies[key];
-            return (
-              <StrategyCard
-                key={key}
-                title={s.title}
-                description={s.description}
-                result={s.result}
-                affiliateUrl={key !== 'optimised' ? s.affiliateUrl : undefined}
-                affiliateText={key === 'optimised' ? 'View Allocation Split' : s.affiliateText}
-                badge={s.badge}
-                onCtaClick={key === 'optimised' ? () => {
-                  setActiveTab('details');
-                  setExpandedStrategy('optimised');
-                } : undefined}
-              >
-                {key === 'custom' && (
-                  <CustomMixSliders mix={customMix} onChange={onCustomMixChange} />
-                )}
-              </StrategyCard>
-            );
-          })}
-        </div>
+          {/* Mobile: Horizontal scroll carousel (3 strategies) */}
+          <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 scroll-snap-x scrollbar-hide -mx-4 px-4">
+            {mobileTabKeys.map((key) => {
+              const s = strategies[key];
+              return (
+                <div key={key} className="flex-shrink-0 w-[85vw] max-w-[320px]">
+                  <StrategyCard
+                    title={s.title}
+                    description={s.description}
+                    result={s.result}
+                    affiliateUrl={key !== 'optimised' ? s.affiliateUrl : undefined}
+                    affiliateText={key === 'optimised' ? 'See How It Works' : s.affiliateText}
+                    badge={s.badge}
+                    onCtaClick={key === 'optimised' ? () => {
+                      setActiveTab('details');
+                      setExpandedStrategy('optimised');
+                    } : undefined}
+                    compact
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/* Desktop: 2x2 grid (all 4 strategies) */}
+          <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 gap-5">
+            {tabKeys.map((key) => {
+              const s = strategies[key];
+              return (
+                <StrategyCard
+                  key={key}
+                  title={s.title}
+                  description={s.description}
+                  result={s.result}
+                  affiliateUrl={key !== 'optimised' ? s.affiliateUrl : undefined}
+                  affiliateText={key === 'optimised' ? 'View Allocation Split' : s.affiliateText}
+                  badge={s.badge}
+                  onCtaClick={key === 'optimised' ? () => {
+                    setActiveTab('details');
+                    setExpandedStrategy('optimised');
+                  } : undefined}
+                >
+                  {key === 'custom' && (
+                    <CustomMixSliders mix={customMix} onChange={onCustomMixChange} />
+                  )}
+                </StrategyCard>
+              );
+            })}
+          </div>
         </>
       ) : (
         /* Detail view with tabs */
         <div>
-          <div className="flex flex-wrap gap-2 mb-6">
+          {/* Mobile: Horizontal scroll for strategy tabs */}
+          <div className="flex overflow-x-auto gap-2 mb-6 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap scrollbar-hide">
             {tabKeys.map((key) => (
               <button
                 key={key}
                 onClick={() => setExpandedStrategy(key)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex-shrink-0 px-5 py-3 sm:px-4 sm:py-2 rounded-lg text-sm font-medium transition-all min-h-[44px] ${
                   expandedStrategy === key
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/25'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'

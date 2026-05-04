@@ -28,18 +28,18 @@ export function ComparisonInsights({
 
   return (
     <div className="mb-6 space-y-4">
-      {/* Quick recommendation cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {/* Quick recommendation cards - horizontal scroll on mobile */}
+      <div className="flex overflow-x-auto gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 scrollbar-hide">
         {/* Best for effort */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 border border-green-100 dark:border-green-800">
+        <div className="flex-shrink-0 w-[75vw] sm:w-auto bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 border border-green-100 dark:border-green-800">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg">⚡</span>
+            <span className="text-lg">✨</span>
             <span className="text-xs font-bold text-green-700 dark:text-green-300 uppercase tracking-wide">
-              Least Effort
+              Easiest
             </span>
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-            One Savings Account
+            Keep It Simple
           </p>
           <p className="text-xs text-gray-600 dark:text-gray-400">
             1 account · {formatCurrency(oneSavings.estimatedAnnualInterest)}/yr
@@ -47,15 +47,15 @@ export function ComparisonInsights({
         </div>
 
         {/* Best balance */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
+        <div className="flex-shrink-0 w-[75vw] sm:w-auto bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg">⚖️</span>
+            <span className="text-lg">💡</span>
             <span className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wide">
-              Best Balance
+              Best Value
             </span>
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-            Optimised Split
+            Smart Split
           </p>
           <p className="text-xs text-gray-600 dark:text-gray-400">
             {optimisedAccounts} accounts · +{formatCurrency(optimisedVsSimple)}/yr extra
@@ -63,15 +63,15 @@ export function ComparisonInsights({
         </div>
 
         {/* Highest potential */}
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800">
+        <div className="flex-shrink-0 w-[75vw] sm:w-auto bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-lg">📈</span>
             <span className="text-xs font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wide">
-              Highest Potential
+              Most Growth
             </span>
           </div>
           <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-            All Index Fund
+            Go For Growth
           </p>
           <p className="text-xs text-gray-600 dark:text-gray-400">
             +{formatCurrency(indexUpside)} in 10yrs · has risk
@@ -91,10 +91,10 @@ export function ComparisonInsights({
         </div>
 
         <div className="space-y-3">
-          {/* One Savings */}
-          <div className="flex items-center gap-3">
-            <div className="w-24 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              One Savings
+          {/* Keep It Simple */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
+              Simple
             </div>
             <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
               <div
@@ -106,17 +106,17 @@ export function ComparisonInsights({
                 </span>
               </div>
             </div>
-            <div className="w-16 text-right">
+            <div className="hidden sm:block w-16 text-right">
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 font-medium">
                 Guaranteed
               </span>
             </div>
           </div>
 
-          {/* Optimised */}
-          <div className="flex items-center gap-3">
-            <div className="w-24 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              Optimised Split
+          {/* Smart Split */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
+              Smart
             </div>
             <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
               <div
@@ -128,17 +128,17 @@ export function ComparisonInsights({
                 </span>
               </div>
             </div>
-            <div className="w-16 text-right">
+            <div className="hidden sm:block w-16 text-right">
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300 font-medium">
                 Guaranteed
               </span>
             </div>
           </div>
 
-          {/* All Index */}
-          <div className="flex items-center gap-3">
-            <div className="w-24 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              All Index Fund
+          {/* Go For Growth */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
+              Growth
             </div>
             <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
               <div
@@ -150,7 +150,7 @@ export function ComparisonInsights({
                 </span>
               </div>
             </div>
-            <div className="w-16 text-right">
+            <div className="hidden sm:block w-16 text-right">
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 font-medium">
                 Projected
               </span>
@@ -158,24 +158,24 @@ export function ComparisonInsights({
           </div>
         </div>
 
-        <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-3 text-center">
-          Index fund returns are projected based on historical averages and not guaranteed
+        <p className="text-[11px] sm:text-[10px] text-gray-400 dark:text-gray-500 mt-3 text-center">
+          Growth returns are projected, not guaranteed
         </p>
       </div>
 
-      {/* Quick facts */}
-      <div className="flex flex-wrap gap-2 justify-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300">
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      {/* Quick facts - stacked on mobile */}
+      <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:justify-center">
+        <div className="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-full text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300">
+          <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
-          Optimised earns +{formatCurrency(optimisedVsSimple)}/yr more than simple
+          Smart Split earns +{formatCurrency(optimisedVsSimple)}/yr more
         </div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+          <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Extra {optimisedAccounts - 1} accounts = ~{(optimisedAccounts - 1) * 8} mins setup
+          {optimisedAccounts - 1} extra accounts ≈ {(optimisedAccounts - 1) * 8} mins to set up
         </div>
       </div>
     </div>

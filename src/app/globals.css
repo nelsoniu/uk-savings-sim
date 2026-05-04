@@ -132,3 +132,56 @@ input[type="range"].transparent-track::-moz-range-track {
 .dark input[type="range"].transparent-track::-moz-range-track {
   background: transparent;
 }
+
+/* ---- Mobile Touch Optimizations ---- */
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Active state for touch feedback */
+.card-hover:active {
+  transform: scale(0.98);
+  opacity: 0.95;
+}
+
+/* Larger slider thumb on mobile */
+@media (max-width: 640px) {
+  input[type="range"]::-webkit-slider-thumb {
+    height: 28px;
+    width: 28px;
+    margin-top: -11px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    height: 28px;
+    width: 28px;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+  }
+  input[type="range"]::-moz-range-track {
+    height: 8px;
+  }
+}
+
+/* ---- Horizontal scroll snap for carousels ---- */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-snap-x > * {
+  scroll-snap-align: start;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
