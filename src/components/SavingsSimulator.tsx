@@ -7,6 +7,7 @@ import { StrategyTabs } from './StrategyTabs';
 import { ProjectionChart } from './ProjectionChart';
 import { ProjectionSummary } from './ProjectionSummary';
 import { QuickRecommendation } from './QuickRecommendation';
+import { DesktopHero } from './DesktopHero';
 import { ThemeToggle } from './ThemeToggle';
 import { calculateOptimisedSplit, calculateOneSavingsAccount } from '@/utils/calculations';
 import { formatCurrency } from '@/utils/calculations';
@@ -80,6 +81,15 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
           />
         </section>
 
+        {/* Desktop Hero - Quick Answer + 1-Year Focus */}
+        <DesktopHero
+          monthlyAmount={monthlyAmount}
+          optimisedResult={optimisedResult}
+          oneSavingsResult={oneSavingsResult}
+          defaultEasyAccessRate={accounts.defaultEasyAccessRate}
+          onShowDetails={scrollToStrategies}
+        />
+
         {/* Strategy Comparison */}
         <section ref={strategySectionRef}>
           <StrategyTabs
@@ -95,15 +105,52 @@ export function SavingsSimulator({ accounts }: SavingsSimulatorProps) {
           />
         </section>
 
-        {/* Projection: Summary on mobile, Chart on desktop */}
+        {/* Projection: Summary on mobile, Chart with summary on desktop */}
         <section>
           {/* Mobile: Summary numbers */}
           <ProjectionSummary
             result={optimisedResult}
             monthlyAmount={monthlyAmount}
           />
-          {/* Desktop: Full chart */}
-          <div className="hidden sm:block">
+          {/* Desktop: Summary + Chart */}
+          <div className="hidden sm:block space-y-6">
+            {/* Desktop summary - "Your First Year" */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl p-6 border border-indigo-100 dark:border-indigo-800/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
+                    Your First Year
+                  </h3>
+                  <p className="text-3xl font-extrabold text-gray-900 dark:text-white tabular-nums">
+                    {formatCurrency(optimisedResult.oneYearProjectedPot)}
+                  </p>
+                  <p className="text-sm text-green-600 dark:text-green-400 font-semibold mt-1">
+                    +{formatCurrency(optimisedResult.oneYearProjectedPot - (monthlyAmount * 12))} in interest
+                  </p>
+                </div>
+                <div className="grid grid-cols-3 gap-6 text-center">
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">You deposit</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white tabular-nums">
+                      {formatCurrency(monthlyAmount * 12)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Growth</p>
+                    <p className="text-lg font-bold text-green-600 dark:text-green-400 tabular-nums">
+                      +{optimisedResult.oneYearGrowthPercent.toFixed(1)}%
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Monthly interest</p>
+                    <p className="text-lg font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
+                      +£{Math.round(optimisedResult.estimatedAnnualInterest / 12)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Chart */}
             <ProjectionChart
               optimised={optimisedResult}
               monthlyAmount={monthlyAmount}

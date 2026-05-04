@@ -109,51 +109,54 @@ export function StrategyCard({
             </div>
           </div>
         ) : (
-          /* Full mode: all 4 metrics */
-          <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-3">
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold mb-0.5">
-                Deposits / yr
-              </p>
-              <p className="text-lg font-bold text-gray-900 dark:text-white tabular-nums">
-                {formatCurrency(result.guaranteedDepositsPerYear)}
-              </p>
-            </div>
-            <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3">
-              <div className="flex items-center gap-1 mb-0.5">
-                <p className="text-[10px] uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold">
-                  Interest / yr
-                </p>
-                <InfoTooltip text="You earn less than the advertised rate because you add money gradually, not all at once" />
+          /* Full mode: 1-year focus for desktop too */
+          <div className="space-y-3 mb-5">
+            {/* Hero metric: 1-year pot */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-4 border border-indigo-100 dark:border-indigo-800/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-1 mb-1">
+                    <p className="text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold">
+                      After 1 year
+                    </p>
+                    <InfoTooltip text="Your total savings after 12 months, including interest earned" />
+                  </div>
+                  <p className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 tabular-nums">
+                    {formatCurrency(result.oneYearProjectedPot)}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Interest earned</p>
+                  <p className="text-lg font-bold text-green-600 dark:text-green-400 tabular-nums">
+                    +{formatCurrency(result.estimatedAnnualInterest)}
+                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400 font-medium">
+                    +{result.oneYearGrowthPercent.toFixed(1)}% growth
+                  </p>
+                </div>
               </div>
-              <p className="text-lg font-bold text-green-600 dark:text-green-400 tabular-nums">
-                +{formatCurrency(result.estimatedAnnualInterest)}
-              </p>
             </div>
-            <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-3">
-              <div className="flex items-center gap-1 mb-0.5">
-                <p className="text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-semibold">
-                  1 yr pot
+            {/* Supporting metrics */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-3">
+                <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold mb-0.5">
+                  You deposit / yr
                 </p>
-                <InfoTooltip text="Your total savings after 12 months, including interest earned" />
+                <p className="text-lg font-bold text-gray-900 dark:text-white tabular-nums">
+                  {formatCurrency(result.guaranteedDepositsPerYear)}
+                </p>
               </div>
-              <p className="text-lg font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">
-                {formatCurrency(result.oneYearProjectedPot)}
-              </p>
-              <p className="text-[10px] text-green-600 dark:text-green-400 mt-0.5 font-medium">
-                +{result.oneYearGrowthPercent.toFixed(1)}%
-              </p>
-            </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
-              <p className="text-[10px] uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold mb-0.5">
-                10 yr pot
-              </p>
-              <p className="text-lg font-bold text-blue-600 dark:text-blue-400 tabular-nums">
-                {formatCurrency(result.tenYearProjectedPot)}
-              </p>
-              <p className="text-[10px] text-green-600 dark:text-green-400 mt-0.5 font-medium">
-                +{result.tenYearGrowthPercent.toFixed(1)}%
-              </p>
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
+                <p className="text-[10px] uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold mb-0.5">
+                  10 yr potential
+                </p>
+                <p className="text-lg font-bold text-blue-600 dark:text-blue-400 tabular-nums">
+                  {formatCurrency(result.tenYearProjectedPot)}
+                </p>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">
+                  +{result.tenYearGrowthPercent.toFixed(0)}% growth
+                </p>
+              </div>
             </div>
           </div>
         )}
