@@ -144,7 +144,6 @@ export function StrategyTabs({
             optimised={optimisedResult}
             oneSavings={oneSavingsResult}
             allIndex={allIndexResult}
-            monthlyAmount={monthlyAmount}
           />
           {/* Mobile: Horizontal scroll carousel (3 strategies) */}
           <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 scroll-snap-x scrollbar-hide -mx-4 px-4">

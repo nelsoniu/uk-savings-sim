@@ -7,19 +7,15 @@ interface ComparisonInsightsProps {
   optimised: StrategyResult;
   oneSavings: StrategyResult;
   allIndex: StrategyResult;
-  monthlyAmount: number;
 }
 
 export function ComparisonInsights({
   optimised,
   oneSavings,
   allIndex,
-  monthlyAmount,
 }: ComparisonInsightsProps) {
   // Calculate comparisons
   const optimisedVsSimple = optimised.estimatedAnnualInterest - oneSavings.estimatedAnnualInterest;
-  const indexVsOptimised10yr = allIndex.tenYearProjectedPot - optimised.tenYearProjectedPot;
-
   const optimisedAccounts = optimised.allocation?.filter(a => a.monthlyAmount > 0).length || 3;
 
   // Risk-adjusted comparison
@@ -77,90 +73,6 @@ export function ComparisonInsights({
             +{formatCurrency(indexUpside)} in 10yrs · has risk
           </p>
         </div>
-      </div>
-
-      {/* Trade-off visualization */}
-      <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4 border border-gray-100 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-            10-Year Comparison
-          </span>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
-            {formatCurrency(monthlyAmount)}/mo deposits
-          </span>
-        </div>
-
-        <div className="space-y-3">
-          {/* Keep It Simple */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              Simple
-            </div>
-            <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
-              <div
-                className="h-full bg-green-500 rounded-full flex items-center justify-end pr-2"
-                style={{ width: `${(oneSavings.tenYearProjectedPot / allIndex.tenYearProjectedPot) * 100}%` }}
-              >
-                <span className="text-[10px] font-bold text-white">
-                  {formatCurrency(oneSavings.tenYearProjectedPot)}
-                </span>
-              </div>
-            </div>
-            <div className="hidden sm:block w-16 text-right">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 font-medium">
-                Guaranteed
-              </span>
-            </div>
-          </div>
-
-          {/* Smart Split */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              Smart
-            </div>
-            <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
-              <div
-                className="h-full bg-blue-500 rounded-full flex items-center justify-end pr-2"
-                style={{ width: `${(optimised.tenYearProjectedPot / allIndex.tenYearProjectedPot) * 100}%` }}
-              >
-                <span className="text-[10px] font-bold text-white">
-                  {formatCurrency(optimised.tenYearProjectedPot)}
-                </span>
-              </div>
-            </div>
-            <div className="hidden sm:block w-16 text-right">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300 font-medium">
-                Guaranteed
-              </span>
-            </div>
-          </div>
-
-          {/* Go For Growth */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-20 sm:w-32 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
-              Growth
-            </div>
-            <div className="flex-1 h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
-              <div
-                className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-end pr-2"
-                style={{ width: '100%' }}
-              >
-                <span className="text-[10px] font-bold text-white">
-                  {formatCurrency(allIndex.tenYearProjectedPot)}
-                </span>
-              </div>
-            </div>
-            <div className="hidden sm:block w-16 text-right">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-800 text-amber-700 dark:text-amber-300 font-medium">
-                Projected
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <p className="text-[11px] sm:text-[10px] text-gray-400 dark:text-gray-500 mt-3 text-center">
-          Growth returns are projected, not guaranteed
-        </p>
       </div>
 
       {/* Quick facts - stacked on mobile */}
